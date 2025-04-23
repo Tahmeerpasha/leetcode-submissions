@@ -1,74 +1,131 @@
-## 🌀 LeetCode 189: Rotate Array (Right Rotation)
+## 🔁 LeetCode 189: Rotate Array
 
-### ✅ Problem
-Given an integer array `nums`, rotate the array to the right by `k` steps, where `k` is non-negative.
-
----
-
-### 💡 Intuition
-To rotate the array to the right by `k` steps, we use **array reversal**. The idea is to reverse parts of the array strategically so the final array is rotated without using extra space.
+### ✅ Problem Statement  
+Given an array, rotate the array to the right by `k` steps, where `k` is non-negative.
 
 ---
 
-### 🔁 Step-by-Step Logic
+## 💡 Approaches
 
-1. **Reverse the first part:** From index `0` to `len - k - 1`
-2. **Reverse the second part:** From index `len - k` to `len - 1`
-3. **Reverse the entire array:** From index `0` to `len - 1`
+---
 
-This gives us the rotated array in-place.
+### 1. 🔨 Brute Force Approach
+
+#### 🧠 Logic:
+- Rotate the array one step to the right `k` times.
+- For each rotation, move the last element to the front by shifting all elements.
+
+#### 💻 Java Code:
+```java
+class Solution {
+    public void rotate(int[] nums, int k) {
+        int n = nums.length;
+        k = k % n;
+
+        for (int i = 0; i < k; i++) {
+            int last = nums[n - 1];
+            for (int j = n - 1; j > 0; j--) {
+                nums[j] = nums[j - 1];
+            }
+            nums[0] = last;
+        }
+    }
+}
+```
+
+#### ⏱️ Complexity:
+- **Time:** O(n * k)
+- **Space:** O(1)
+
+---
+
+### 2. 🔧 Better Approach (Using Extra Array)
+
+#### 🧠 Logic:
+- Create a new array `res` of size `n`.
+- Place each element at its new rotated index: `res[(i + k) % n] = nums[i]`.
+
+#### 💻 Java Code:
+```java
+class Solution {
+    public void rotate(int[] nums, int k) {
+        int n = nums.length;
+        int[] res = new int[n];
+        k = k % n;
+
+        for (int i = 0; i < n; i++) {
+            res[(i + k) % n] = nums[i];
+        }
+
+        // Copy back to original array
+        for (int i = 0; i < n; i++) {
+            nums[i] = res[i];
+        }
+    }
+}
+```
+
+#### ⏱️ Complexity:
+- **Time:** O(n)
+- **Space:** O(n)
+
+---
+
+### 3. ⚡ Optimized Approach (In-place Reversal)
+
+#### 🧠 Logic:
+Use the reversal trick:
+1. Reverse the first part: `0` to `n - k - 1`
+2. Reverse the second part: `n - k` to `n - 1`
+3. Reverse the whole array: `0` to `n - 1`
+
+This reorders elements as if the array was rotated.
+
+---
+
+#### 📐 Dry Run Example
+
+```java
+nums = [1, 2, 3, 4, 5, 6, 7], k = 3
+
+Step 1: reverse(0, n-k-1) => reverse(0, 3) => [4, 3, 2, 1, 5, 6, 7]  
+Step 2: reverse(n-k, n-1) => reverse(4, 6) => [4, 3, 2, 1, 7, 6, 5]  
+Step 3: reverse(0, n-1) => reverse(0, 6) => [5, 6, 7, 1, 2, 3, 4]
+```
+
+---
+
+#### 💻 Java Code:
+```java
+class Solution {
+    public void rotate(int[] nums, int k) {
+        int n = nums.length;
+        k = k % n;
+
+        reverse(nums, 0, n - k - 1);
+        reverse(nums, n - k, n - 1);
+        reverse(nums, 0, n - 1);
+    }
+
+    private void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start++] = nums[end];
+            nums[end--] = temp;
+        }
+    }
+}
+```
+
+#### ⏱️ Complexity:
+- **Time:** O(n)
+- **Space:** O(1)
 
 ---
 
 ### 🧪 Example
 
 ```java
-nums = [1, 2, 3, 4, 5, 6, 7]
-k = 3
+Input: nums = [1,2,3,4,5,6,7], k = 3
+Output: [5,6,7,1,2,3,4]
 ```
-
-#### Step 1: Reverse first part
-Reverse from index `0` to `3`  
-Result: `[4, 3, 2, 1, 5, 6, 7]`
-
-#### Step 2: Reverse second part
-Reverse from index `4` to `6`  
-Result: `[4, 3, 2, 1, 7, 6, 5]`
-
-#### Step 3: Reverse entire array
-Reverse from index `0` to `6`  
-Final Result: `[5, 6, 7, 1, 2, 3, 4]`
-
----
-
-### 💻 Java Code
-
-```java
-class Solution {
-    public void rotate(int[] nums, int k) {
-        if (k > nums.length)
-            k = k % nums.length;
-
-        reverseArray(nums, 0, nums.length - k - 1);   // Step 1
-        reverseArray(nums, nums.length - k, nums.length - 1);   // Step 2
-        reverseArray(nums, 0, nums.length - 1);   // Step 3
-    }
-
-    void reverseArray(int[] nums, int startIndex, int endIndex) {
-        while (startIndex < endIndex) {
-            int temp = nums[startIndex];
-            nums[startIndex] = nums[endIndex];
-            nums[endIndex] = temp;
-            startIndex++;
-            endIndex--;
-        }
-    }
-}
-```
-
----
-
-### ⏱️ Time & Space Complexity
-
-- **Time Complexity:** `O(n)` – Each reversal takes linear time.
-- **Space Complexity:** `O(1)` – In-place reversal, no extra space used.
