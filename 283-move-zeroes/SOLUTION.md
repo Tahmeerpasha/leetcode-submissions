@@ -106,15 +106,25 @@ class Solution {
 - **Space:** O(1)
 
 ---
+### 🧪  Dry Run
 
-### 🧪 Example Dry Run
-
+### 🔧 Input:
 ```java
-Input:  [0, 1, 0, 3, 12]
-Output: [1, 3, 12, 0, 0]
+nums = [0, 1, 0, 3, 12]
 ```
 
-- `i = 0` → skip  
-- `i = 1` → swap(1, 0) → [1, 0, 0, 3, 12]  
-- `i = 3` → swap(3, 0) → [1, 3, 0, 0, 12]  
-- `i = 4` → swap(12, 0) → [1, 3, 12, 0, 0]
+We maintain a `j` pointer for the next non-zero placement.
+
+### 📌 Dry Run Steps:
+
+| i | nums[i] | nums (before swap) | Action                         | j  | nums (after swap)  |
+|---|---------|--------------------|--------------------------------|----|---------------------|
+| 0 | 0       | [0, 1, 0, 3, 12]   | Zero → do nothing              | 0  | [0, 1, 0, 3, 12]    |
+| 1 | 1       | [0, 1, 0, 3, 12]   | Swap with j=0                  | 1  | [1, 0, 0, 3, 12]    |
+| 2 | 0       | [1, 0, 0, 3, 12]   | Zero → do nothing              | 1  | [1, 0, 0, 3, 12]    |
+| 3 | 3       | [1, 0, 0, 3, 12]   | Swap with j=1                  | 2  | [1, 3, 0, 0, 12]    |
+| 4 | 12      | [1, 3, 0, 0, 12]   | Swap with j=2                  | 3  | [1, 3, 12, 0, 0]    |
+
+✅ Final Array → `[1, 3, 12, 0, 0]`
+
+---
