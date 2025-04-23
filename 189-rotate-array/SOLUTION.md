@@ -86,14 +86,40 @@ This reorders elements as if the array was rotated.
 #### 📐 Dry Run Example
 
 ```java
-nums = [1, 2, 3, 4, 5, 6, 7], k = 3
-
-Step 1: reverse(0, n-k-1) => reverse(0, 3) => [4, 3, 2, 1, 5, 6, 7]  
-Step 2: reverse(n-k, n-1) => reverse(4, 6) => [4, 3, 2, 1, 7, 6, 5]  
-Step 3: reverse(0, n-1) => reverse(0, 6) => [5, 6, 7, 1, 2, 3, 4]
-```
+Of course, Tahmeer! Here are the **dry runs** for both problems in a clean and simple format for your notes. 👇
 
 ---
+
+## 🔁 Leetcode 189: **Rotate Array**
+
+### 🔧 Input:
+nums = [1, 2, 3, 4, 5, 6, 7], k = 3
+```
+
+### 📌 Dry Run Steps:
+
+Let `n = 7`, so:
+
+#### Step 1: Reverse from `0 to n-k-1` → `0 to 3`
+```java
+Before: [1, 2, 3, 4, 5, 6, 7]
+After:  [4, 3, 2, 1, 5, 6, 7]
+```
+
+#### Step 2: Reverse from `n-k to n-1` → `4 to 6`
+```java
+Before: [4, 3, 2, 1, 5, 6, 7]
+After:  [4, 3, 2, 1, 7, 6, 5]
+```
+
+#### Step 3: Reverse the entire array from `0 to n-1`
+```java
+Before: [4, 3, 2, 1, 7, 6, 5]
+After:  [5, 6, 7, 1, 2, 3, 4]
+```
+
+✅ Final Rotated Array → `[5, 6, 7, 1, 2, 3, 4]`
+```
 
 #### 💻 Java Code:
 ```java
