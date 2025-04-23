@@ -81,20 +81,11 @@ Use the reversal trick:
 
 This reorders elements as if the array was rotated.
 
----
 
 #### 📐 Dry Run Example
 
-```java
-Of course, Tahmeer! Here are the **dry runs** for both problems in a clean and simple format for your notes. 👇
-
----
-
-## 🔁 Leetcode 189: **Rotate Array**
-
 ### 🔧 Input:
 nums = [1, 2, 3, 4, 5, 6, 7], k = 3
-```
 
 ### 📌 Dry Run Steps:
 
@@ -119,7 +110,6 @@ After:  [5, 6, 7, 1, 2, 3, 4]
 ```
 
 ✅ Final Rotated Array → `[5, 6, 7, 1, 2, 3, 4]`
-```
 
 #### 💻 Java Code:
 ```java
