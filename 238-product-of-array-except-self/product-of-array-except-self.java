@@ -14,23 +14,39 @@ class Solution {
         // }
         // return answer;
 
-        //    Best approach
-            int[] prefix = new int[n];
-            int[] suffix = new int[n];
+        // Another approach O(n) would be to multiple the entire array and divide by nums[i] to get answer[i] but it is not permissible according to the question.
+
+        //    Better approach || Space -> O(n) || Time -> O(n)
+        // Need to optimise for O(1) space
+            // int[] prefix = new int[n];
+            // int[] suffix = new int[n];
+            // for(int i = 0 ; i < n ; i++){
+            //     prefix[i] = 1;
+            //     suffix[i] = 1;
+            // }
+            // for (int i = 1; i < n; i++) {
+            //     prefix[i] = prefix[i - 1] * nums[i-1];
+            // }
+            // for (int i = n - 2; i >= 0; i--) {
+            //     suffix[i] = suffix[i + 1] * nums[i+1];
+            // }
+            // for(int i=0; i < n ; i++){
+            //     answer[i] = prefix[i] * suffix[i];
+            // }
+            // return answer;
+
+            // Optimised approach || Space -> O(1) || Time -> O(n)
+            int suffix = 1;
             for(int i = 0 ; i < n ; i++){
-                prefix[i] = 1;
-                suffix[i] = 1;
+                answer[i] = 1;
             }
             for (int i = 1; i < n; i++) {
-                prefix[i] = prefix[i - 1] * nums[i-1];
+                answer[i] = answer[i - 1] * nums[i-1];
             }
             for (int i = n - 2; i >= 0; i--) {
-                suffix[i] = suffix[i + 1] * nums[i+1];
-            }
-            for(int i=0; i < n ; i++){
-                answer[i] = prefix[i] * suffix[i];
+                suffix *= nums[i+1];
+                answer[i] *= suffix;
             }
             return answer;
-
     }
 }
