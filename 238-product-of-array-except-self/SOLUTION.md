@@ -139,3 +139,4 @@ nums = [1, 2, 3, 4]
 ```java
 [24, 12, 8, 6]
 ```
+![image](https://github.com/user-attachments/assets/3c4740e6-3643-4d25-a63b-6d8b6026b764)
