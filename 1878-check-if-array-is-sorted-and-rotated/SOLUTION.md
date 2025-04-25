@@ -81,7 +81,5 @@ class Solution {
 
 Here's a **visual explanation** of how the optimized logic works (one drop point):
 
-![Visual Explanation](sandbox:/mnt/data/A_2D_digital_diagram_illustrates_the_computation_p.png)
-
 - Array is **rotated at the drop** between 5 → 1
 - Before and after the drop, the array is non-decreasing
