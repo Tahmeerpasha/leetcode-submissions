@@ -16,7 +16,7 @@ class Solution {
 //     }
 //     return 0;
 
-        // Space -> O(1) and Time -> O(1)
+        // Space -> O(1) and Time -> O(N)
 
     int count = 0;
     int candidate = 0;
