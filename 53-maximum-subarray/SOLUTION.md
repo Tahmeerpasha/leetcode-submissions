@@ -88,4 +88,5 @@ return max;
 ---
 
 ### 📊 Visual Representation:
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/e22935ec-bc0e-400b-93a4-1479d3f84511)
+
