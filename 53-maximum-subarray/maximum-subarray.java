@@ -39,6 +39,17 @@ class Solution {
     // return max;
 
     // O(n^2) -> time and space -> O(1)
+    // int max = Integer.MIN_VALUE;
+    // for(int i=0; i<n ; i++){
+    // int sum = 0;
+    //   for(int j=i; j<n; j++){
+    //       sum += nums[j];
+    //       max = Math.max(max,sum);
+    //   }
+    // }
+    // return max;
+
+    // O(n) -> time and space -> O(1)
     int max = Integer.MIN_VALUE;
     int sum = 0;
     for(int i=0; i<n ; i++){
@@ -47,5 +58,6 @@ class Solution {
           max = Math.max(max,sum);
     }
     return max;
+
   }
 }
