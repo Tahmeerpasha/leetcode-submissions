@@ -2,6 +2,7 @@ class Solution {
     public int maxFrequency(int[] nums, int k) {
         int frequency = 1, n = nums.length, left = 0, right = 0;
         long total = 0;
+        // Time => O(nlogn) & Space => O(1)
         Arrays.sort(nums);
         while(right < n){
             total += nums[right];
