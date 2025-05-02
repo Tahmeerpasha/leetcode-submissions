@@ -22,6 +22,7 @@ class Solution {
         //     }
         // }
 
+        // Time -> O(mn) & Space -> O(1)
         int col0 = 1;
         int n = matrix.length;
         int m = matrix[0].length;
