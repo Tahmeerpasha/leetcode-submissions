@@ -12,6 +12,7 @@ class Solution {
         //     }
         // }
 
+        // Time => O(n) & Space => O(n) [Prefix Sum method]
         Map<Integer, Integer> prefixSumMap = new HashMap<>();
         int prefixSum=0;
         prefixSumMap.put(0,1);
