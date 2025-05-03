@@ -21,9 +21,7 @@ class Solution {
         for(int row=0; row<n; row++){
             for(int col=row; col<n; col++){
                 if(row != col){
-                int temp = matrix[row][col];
-                    matrix[row][col] = matrix[col][row];
-                    matrix[col][row] = temp;
+                    swap(matrix, row, col);
                 }
             }
         }
@@ -36,13 +34,20 @@ class Solution {
 
     void reverse(int[] arr){
         int i=0, j=arr.length-1;
-
         while(i<j){
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-            i++;
-            j--;
+            swap(arr, i++, j--);
         }
+    }
+
+    void swap(int[][] matrix, int row, int col){
+        int temp = matrix[row][col];
+        matrix[row][col] = matrix[col][row];
+        matrix[col][row] = temp;
+    }
+
+    void swap(int[] arr, int i, int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
