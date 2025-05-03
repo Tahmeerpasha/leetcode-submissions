@@ -59,4 +59,3 @@ target = [[3, 1],
 * The 90° counter will match all elements → return `true`.
 
 ---
-![image](https://github.com/user-attachments/assets/56c2dae3-ddaa-42b3-9abf-9b625d9b6bf6)
