@@ -15,17 +15,17 @@ class Solution {
         // }
         // return answer;
 
-        // 
-       HashMap<Integer, Integer> remainingSum = new HashMap<Integer, Integer>();
+        // Time -> 0(n)
+        HashMap<Integer, Integer> remainingSum = new HashMap<Integer, Integer>();
         for(int i=0; i<n; i++){
-        int diff = target - nums[i];
-        if(remainingSum.containsKey(diff)){
-            answer[0] = i;
-            answer[1] = remainingSum.get(diff);
-            return answer;
-        }else{
-            remainingSum.put(nums[i], i);
-        }
+            int diff = target - nums[i];
+            if(remainingSum.containsKey(diff)){
+                answer[0] = i;
+                answer[1] = remainingSum.get(diff);
+                return answer;
+            }else{
+                remainingSum.put(nums[i], i);
+            }
         }
         return answer;
     }
