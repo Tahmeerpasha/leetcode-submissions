@@ -54,8 +54,8 @@ class Solution {
     int sum = 0;
     for(int i=0; i<n ; i++){
         if(sum < 0) sum = 0;
-          sum += nums[i];
-          max = Math.max(max,sum);
+        sum += nums[i];
+        max = Math.max(max,sum);
     }
     return max;
 
