@@ -50,14 +50,13 @@ class Solution {
     // return max;
 
     // O(n) -> time and space -> O(1)
-    int max = Integer.MIN_VALUE;
+    int maximum = Integer.MIN_VALUE;
     int sum = 0;
-    for(int i=0; i<n ; i++){
-        if(sum < 0) sum = 0;
-        sum += nums[i];
-        max = Math.max(max,sum);
+    for(int index=0; index<n; index++){
+        if(sum<0) sum=0;
+        sum += nums[index];
+        maximum = Math.max(maximum, sum);
     }
-    return max;
-
+    return maximum;
   }
 }
