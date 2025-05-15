@@ -1,4 +1,4 @@
-## 📝 Problem: Sort an Array
+## 📝 Problem: Sort an Array (MERGE SORT)
 
 Given an array of integers `nums`, sort the array in **ascending order** and return it.
 
