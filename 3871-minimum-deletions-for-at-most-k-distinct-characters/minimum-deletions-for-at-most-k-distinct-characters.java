@@ -6,11 +6,10 @@ class Solution {
         }
         if (map.size() <= k)
             return 0;
-        int sum = 0;
-        List<Integer> list = map.values().stream().sorted().toList();
-        for (int i = 0; i < list.size() - k; i++) {
-            sum += list.get(i);
-        }
-        return sum;
+        return map.values().stream()
+                .sorted()
+                .limit(map.size() - k)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 }
