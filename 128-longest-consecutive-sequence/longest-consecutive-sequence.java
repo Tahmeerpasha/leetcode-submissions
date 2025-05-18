@@ -15,6 +15,7 @@ class Solution {
         // }
         // return maxCount;
 
+        // Optimal => Time -> O(n) && Space -> O(n)
         HashSet<Integer> set = new HashSet<>();
         int maxCount = 0;
         for(int num:nums){
