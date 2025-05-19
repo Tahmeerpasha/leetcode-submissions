@@ -25,7 +25,7 @@ class Solution {
             // if the current interval does not
             // lie in the last interval:
             if(answer.isEmpty() || intervals[i][0] > answer.get(answer.size()-1)[1])
-                answer.add(new int[]{intervals[i][0], intervals[i][1]});
+                answer.add(intervals[i]);
             else
             // if the current interval
             // lies in the last interval:
