@@ -4,7 +4,7 @@ class Solution {
     }
 
     int binarySearch(int[] nums, int target, int start, int end) {
-        int mid = (end + (end - start + 1)) / 2;
+        int mid = (end + (end - start)) / 2;
         if (start > end)
             return -1;
         if (nums[mid] == target)
