@@ -8,12 +8,12 @@ class Solution {
                 min = Math.min(min, a[low]);
                 break;
             }
-            // Left sorted
+            // Left sorted then take the min element and eliminate the left space
             if (a[low] <= a[mid]) {
                 min = Math.min(min, a[low]);
                 low = mid+1;
             } else {
-                // Right sorted
+                // Right sorted then take the min element and eliminate the right space
                 min = Math.min(min, a[mid]);
                 high = mid-1;
             }
