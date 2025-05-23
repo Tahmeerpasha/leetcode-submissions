@@ -3,7 +3,7 @@ class Solution {
         int n = nums.length;
         int low = 0, high = n-1;
         int first=-1, last=-1;
-        // Not optimal - Using loops. Time -> more than O(nlogn)
+        // Not optimal - Using loops. Time -> more than O(logn)
         // while(low <= high){
         //     int mid = (low+high)/2;
         //     if(nums[mid] == target){
@@ -20,13 +20,13 @@ class Solution {
         // }
         // return new int[]{first, last};
 
-        // Using upper and lower bounds => Time -> O(nlogn)
+        // Using upper and lower bounds => Time -> O(logn)
         // int lower = lowerBound(nums, nums.length, target);
         // if(lower == nums.length || nums[lower] != target)return new int[]{-1,-1};
         // int upper = upperBound(nums, nums.length, target);
         // return new int[]{lower, upper-1};
 
-        // Simple binary search for first and last
+        // Simple binary search for first and last. Time -> O(logn)
         // For first occurrence
         while(low <= high){
             int mid = (low+high)/2;
