@@ -3,20 +3,53 @@ class Solution {
         int n = nums.length;
         int low = 0, high = n-1;
         int first=-1, last=-1;
+        // Not optimal - Using loops 
+        // while(low <= high){
+        //     int mid = (low+high)/2;
+        //     if(nums[mid] == target){
+        //         int j=mid;
+        //         while(j>=0 && nums[j] == target)j--;
+        //         int k=mid;
+        //         while(k <= n-1 && nums[k] == target)k++;
+        //         first = j+1;
+        //         last = k-1;
+        //     }
+        //     if(nums[mid] < target){
+        //         low = mid+1;
+        //     }else high = mid-1;
+        // }
+        // return new int[]{first, last};
+
+        // Using upper and lower bounds
+        int lower = lowerBound(nums, nums.length, target);
+        if(lower == nums.length || nums[lower] != target)return new int[]{-1,-1};
+        int upper = upperBound(nums, nums.length, target);
+        return new int[]{lower, upper-1};
+    }
+
+    public int lowerBound(int []arr, int n, int x) {
+        int ans = n;
+        int low = 0, high = n-1;
         while(low <= high){
-            int mid = (low+high)/2;
-            if(nums[mid] == target){
-                int j=mid;
-                while(j>=0 && nums[j] == target)j--;
-                int k=mid;
-                while(k <= n-1 && nums[k] == target)k++;
-                first = j+1;
-                last = k-1;
-            }
-            if(nums[mid] < target){
-                low = mid+1;
-            }else high = mid-1;
+            int mid = (low + high)/2;
+            if(arr[mid] >= x){
+                ans = mid;
+                high = mid-1;
+            }else low = mid+1;
         }
-        return new int[]{first, last};
+        return ans;
+    }
+
+    public int upperBound(int []arr, int n, int x) {
+        int ans = n;
+        int low = 0, high = n-1;
+        while(low <= high){
+            int mid = (low + high)/2;
+            if(arr[mid] > x){
+                ans = mid;
+                high = mid-1;
+            }else low = mid+1;
+        }
+        return ans;
     }
 }
