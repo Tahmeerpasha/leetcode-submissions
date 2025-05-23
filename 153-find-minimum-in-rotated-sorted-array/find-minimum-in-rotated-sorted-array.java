@@ -3,6 +3,11 @@ class Solution {
         int low = 0, high = a.length - 1, min = Integer.MAX_VALUE;
         while (low <= high) {
             int mid = (low + high) / 2;
+            // If in the sorted part then low will always have the minimum value
+            if(a[low] <= a[high]){
+                min = Math.min(min, a[low]);
+                break;
+            }
             // Left sorted
             if (a[low] <= a[mid]) {
                 min = Math.min(min, a[low]);
