@@ -6,16 +6,28 @@ class Solution {
         //     if((long) i*i <= x)ans = i;
         //     else break;
         // }
-        
+
         // Optimal - Using binary search
+        // int low = 1, high = x;
+        // while (low <= high) {
+        //     int mid = low + (high - low) / 2;
+        //     if ((long) mid * mid <= x) {
+        //         ans = mid;
+        //         low = mid + 1;
+        //     } else
+        //         high = mid - 1;
+        // }
+        // return ans;
+
+        // Optimal - Using binary search where high will contain the answer
         int low = 1, high = x;
-        while(low <= high){
-            int mid = low + (high-low)/2;
-            if((long)mid * mid <= x){
-                ans = mid;
-                low = mid+1;
-            }else high = mid-1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if ((long) mid * mid <= x)
+                low = mid + 1;
+            else
+                high = mid - 1;
         }
-        return ans;
+        return high;
     }
 }
