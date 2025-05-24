@@ -7,8 +7,11 @@ class Solution {
         int low = 1, high = n-2;
         while(low <= high){
             int mid = (low+high)/2;
+            // Peak element
             if(a[mid] > a[mid-1] && a[mid] > a[mid+1])return mid;
-            else if(a[mid] > a[mid-1])low = mid+1;
+            // Left slope, so eliminate left search space because peak is in right
+            else if(a[mid] < a[mid+1])low = mid+1;
+            // Right slope, so eliminate right search space because peak is in left
             else high = mid-1;
         }
         return -1;
