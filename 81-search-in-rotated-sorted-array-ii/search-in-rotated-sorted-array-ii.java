@@ -5,6 +5,7 @@ class Solution {
             int mid = (low + high) / 2;
             if (a[mid] == x)
                 return true;
+            // If same values then shrink the search space
             if(a[low] == a[mid] && a[high] == a[mid]){
                 low++;
                 high--;
