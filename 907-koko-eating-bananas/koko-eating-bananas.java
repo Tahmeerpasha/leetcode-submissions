@@ -3,24 +3,26 @@ class Solution {
         int low = 1, high = max(piles);
         while(low <= high){
             int mid = (low+high)/2;
-            int totalH = calculateTotalHours(piles, mid);
+            int totalH = findTotal(piles, mid);
             if(totalH <= h) high = mid-1;
             else low = mid+1;
         }
         return low;
     }
-    int calculateTotalHours(int[] arr, int h){
+
+    int findTotal(int[] nums, int hour){
         int total = 0;
-        for(int i=0;i<arr.length;i++){
-            total += Math.ceil((double)arr[i]/ (double)h);
+        for(int num:nums){
+            total += Math.ceil((double)num/(double)hour);
         }
         return total;
     }
-    int max(int[] arr){
-        int ans = Integer.MIN_VALUE;
-        for(int i=0; i< arr.length; i++){
-            ans = Math.max(ans, arr[i]);
+
+    int max(int[] nums){
+        int max = Integer.MIN_VALUE;
+        for(int num:nums){
+            max = Math.max(max, num);
         }
-        return ans;
+        return max;
     }
 }
