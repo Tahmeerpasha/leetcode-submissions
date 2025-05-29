@@ -12,17 +12,15 @@ class Solution {
 
     int findTotal(int[] nums, int hour){
         int total = 0;
-        for(int num:nums){
+        for(int num:nums)
             total += Math.ceil((double)num/(double)hour);
-        }
         return total;
     }
 
     int max(int[] nums){
         int max = Integer.MIN_VALUE;
-        for(int num:nums){
+        for(int num:nums)
             max = Math.max(max, num);
-        }
         return max;
     }
 }
