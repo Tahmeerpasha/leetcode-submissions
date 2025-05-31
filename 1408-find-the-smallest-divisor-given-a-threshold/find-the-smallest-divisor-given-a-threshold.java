@@ -8,29 +8,29 @@ class Solution {
         // }
 
         // Optimal 
-        int ans = high;
-        while(low <= high){
-            int mid = (low+high)/2;
+        while (low <= high) {
+            int mid = (low + high) / 2;
             int sum = sumOfDivision(nums, mid);
-            if(sum <= threshold){
-                ans = mid;
-                high = mid-1;
-            }
-            else low = mid+1;
+            if (sum <= threshold) {
+                high = mid - 1;
+            } else
+                low = mid + 1;
         }
-        return ans;
+        return low;
     }
-    int max(int nums[]){
+
+    int max(int nums[]) {
         int max = Integer.MIN_VALUE;
-        for(int num:nums){
+        for (int num : nums) {
             max = Math.max(max, num);
         }
         return max;
     }
-    int sumOfDivision(int[] nums, int divisor){
-        int sum=0;
-        for(int num:nums){
-            sum += Math.ceil((double) num/ (double)divisor);
+
+    int sumOfDivision(int[] nums, int divisor) {
+        int sum = 0;
+        for (int num : nums) {
+            sum += Math.ceil((double) num / (double) divisor);
         }
         return sum;
     }
