@@ -2,11 +2,19 @@ class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
         int row = matrix.length;
         int col = matrix[0].length;
-        // Better -> O(row * log(col))
-        int ansCol = -1;
-        for(int i=0; i<row; i++){
-            ansCol = binarySearch(matrix[i], target);
-            if(ansCol != -1)return true;
+        // Better -> Time = O(row * log(col))
+        // int ansCol = -1;
+        // for(int i=0; i<row; i++){
+        //     ansCol = binarySearch(matrix[i], target);
+        //     if(ansCol != -1)return true;
+        // }
+
+        // Optimal -> Time = O(row+col)
+        int ansRow=0, ansCol=col-1;
+        while(ansRow < row && ansCol >= 0){
+            if(matrix[ansRow][ansCol] == target)return true;
+            else if(matrix[ansRow][ansCol] < target)ansRow++;
+            else ansCol--;
         }
         return false;
     }
