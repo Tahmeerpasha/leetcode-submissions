@@ -12,14 +12,17 @@ class Solution {
         // else return binarySearch(matrix[checkRow], target);
 
         // Optimal -> Time -> O(log(row*col))
-        int low = 0, high = (row*col-1);
-        while(low <= high){
-            int mid = (low+high)/2;
+        int low = 0, high = (row * col - 1);
+        while (low <= high) {
+            int mid = (low + high) / 2;
             int rowVal = mid / col;
             int colVal = mid % col;
-            if(matrix[rowVal][colVal] == target)return true;
-            else if(matrix[rowVal][colVal] > target) high = mid-1;
-            else low = mid+1;
+            if (matrix[rowVal][colVal] == target)
+                return true;
+            else if (matrix[rowVal][colVal] > target)
+                high = mid - 1;
+            else
+                low = mid + 1;
         }
         return false;
     }
@@ -28,11 +31,12 @@ class Solution {
         int low = 0, high = a.length - 1;
         while (low <= high) {
             int mid = (low + high) / 2;
-            if(a[mid] == x)return true;
-            if (a[mid]< x) {
-                low = mid+1;
+            if (a[mid] == x)
+                return true;
+            if (a[mid] < x) {
+                low = mid + 1;
             } else {
-                high = mid-1;
+                high = mid - 1;
             }
         }
         return false;
