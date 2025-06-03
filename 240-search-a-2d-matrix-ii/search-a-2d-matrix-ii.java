@@ -10,11 +10,14 @@ class Solution {
         // }
 
         // Optimal -> Time = O(row+col)
-        int ansRow=0, ansCol=col-1;
-        while(ansRow < row && ansCol >= 0){
-            if(matrix[ansRow][ansCol] == target)return true;
-            else if(matrix[ansRow][ansCol] < target)ansRow++;
-            else ansCol--;
+        int ansRow = 0, ansCol = col - 1;
+        while (ansRow < row && ansCol >= 0) {
+            if (matrix[ansRow][ansCol] == target)
+                return true;
+            else if (matrix[ansRow][ansCol] < target)
+                ansRow++;
+            else
+                ansCol--;
         }
         return false;
     }
