@@ -1,6 +1,5 @@
 class Solution {
     public int[] findPeakGrid(int[][] mat) {
-        int[] ans = new int[2];
         int row = mat.length;
         int col = mat[0].length;
         int low = 0, high = col - 1;
@@ -19,10 +18,10 @@ class Solution {
         return new int[] { -1, -1 };
     }
 
-    int maxInd(int[][] mat, int start, int end, int currCol){
-        int max=-1, maxInd=-1;
-        for(int i=start; i<=end; i++){
-            if(mat[i][currCol] > max){
+    int maxInd(int[][] mat, int start, int end, int currCol) {
+        int max = -1, maxInd = -1;
+        for (int i = start; i <= end; i++) {
+            if (mat[i][currCol] > max) {
                 max = mat[i][currCol];
                 maxInd = i;
             }
