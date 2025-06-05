@@ -1,25 +1,26 @@
 class Solution {
     public int minDays(int[] bloomDay, int m, int k) {
         int n = bloomDay.length;
-        int min = min(bloomDay);
-        int max = max(bloomDay);
         if ((long) n < (long) m * k)
             return -1;
-        // Brute force ->Time => O(n^2) && Space -> O(1)
-        // for (int i = min; i <= max; i++) {
+        int low = min(bloomDay);
+        int high = max(bloomDay);
+
+        // Brute force ->Time => O((high-low+1)*N) && Space -> O(1)
+        // for (int i = low; i <= high; i++) {
         //     if (isPossible(bloomDay, i, m, k))
         //         return i;
         // }
 
-        int low = min, high = max, ans=0;
-        while(low <= high){
-            int mid = (low+high)/2;
-            if(isPossible(bloomDay, mid, m, k)){
-                ans = mid;
-                high = mid-1;
-            }else low = mid+1;
+        // Optimal -> Time => O(N * log(high-low+1))
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (isPossible(bloomDay, mid, m, k))
+                high = mid - 1;
+            else
+                low = mid + 1;
         }
-        return ans;
+        return low;
     }
 
     int min(int[] bloomDay) {
