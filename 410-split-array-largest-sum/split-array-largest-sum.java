@@ -38,7 +38,6 @@ class Solution {
 
     int numOfSubArrays(int[] arr, int size) {
         int numOfSubArrays = 1, sum = 0;
-
         for (int num : arr) {
             sum += num;
             if (sum > size) {
@@ -46,7 +45,6 @@ class Solution {
                 sum = num;
             }
         }
-
         return numOfSubArrays;
     }
 }
