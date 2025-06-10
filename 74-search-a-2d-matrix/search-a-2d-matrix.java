@@ -3,7 +3,7 @@ class Solution {
         int row = matrix.length;
         int col = matrix[0].length;
 
-        // Better -> O(row * log(col))
+        // Better -> O(row + log(col))
         // int checkRow=-1;
         // for(int i=0; i<row; i++){
         //     if(target <= matrix[i][column-1] && target >= matrix[i][0] )checkRow=i;
