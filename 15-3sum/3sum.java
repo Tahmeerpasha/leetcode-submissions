@@ -38,7 +38,7 @@ class Solution {
         //     }
         // }
 
-        // Optimal -> Space => O(n^2) && Time => O(1)
+        // Optimal -> Time => O(n^2) && Space => O(1)
         Arrays.sort(nums);
         if(n < 3)return new ArrayList<>();
         for(int i=0; i < n; i++){
