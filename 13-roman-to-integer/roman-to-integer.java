@@ -2,11 +2,11 @@ class Solution {
     public int romanToInt(String s) {
         int num = giveNumFromChar(s.charAt(0));
         for (int i = 1; i < s.length(); i++) {
-            if(giveNumFromChar(s.charAt(i-1)) < giveNumFromChar(s.charAt(i)))
-                num += giveNumFromChar(s.charAt(i)) - (2 * giveNumFromChar(s.charAt(i-1)));
+            if (giveNumFromChar(s.charAt(i - 1)) < giveNumFromChar(s.charAt(i)))
+                num += giveNumFromChar(s.charAt(i)) - (2 * giveNumFromChar(s.charAt(i - 1)));
             else
-            num += giveNumFromChar(s.charAt(i));
-            
+                num += giveNumFromChar(s.charAt(i));
+
         }
         return num;
     }
