@@ -1,14 +1,28 @@
 class Solution {
     public int romanToInt(String s) {
-        int num = giveNumFromChar(s.charAt(0));
-        for (int i = 1; i < s.length(); i++) {
-            if (giveNumFromChar(s.charAt(i - 1)) < giveNumFromChar(s.charAt(i)))
-                num += giveNumFromChar(s.charAt(i)) - (2 * giveNumFromChar(s.charAt(i - 1)));
-            else
-                num += giveNumFromChar(s.charAt(i));
+        // Left to Right logic 
+        // int num = giveNumFromChar(s.charAt(0));
+        // for (int i = 1; i < s.length(); i++) {
+        //     if (giveNumFromChar(s.charAt(i - 1)) < giveNumFromChar(s.charAt(i)))
+        //         num += giveNumFromChar(s.charAt(i)) - (2 * giveNumFromChar(s.charAt(i - 1)));
+        //     else
+        //         num += giveNumFromChar(s.charAt(i));
 
+        // }
+        // return num;
+
+        // Right to left logic
+        int n = s.length();
+        int ans = giveNumFromChar(s.charAt(n - 1));
+        for (int i = n - 2; i >= 0; i--) {
+            int curr = giveNumFromChar(s.charAt(i));
+            int next = giveNumFromChar(s.charAt(i + 1));
+            if (curr < next)
+                ans -= curr;
+            else
+                ans += curr;
         }
-        return num;
+        return ans;
     }
 
     int giveNumFromChar(Character c) {
