@@ -11,12 +11,12 @@
 class Solution {
     public ListNode reverseList(ListNode head) {
         // Iterative => Time -> O(N) && Space -> O(1)
-        // ListNode temp = head, prev = null;
-        // while(temp != null){
-        //     ListNode front = temp.next;
-        //     temp.next = prev;
-        //     prev = temp;
-        //     temp = front;
+        // ListNode curr = head, prev = null;
+        // while(curr != null){
+        //     ListNode nextNode = curr.next;
+        //     curr.next = prev;
+        //     prev = curr;
+        //     curr = nextNode;
         // }
         // return prev;
 
