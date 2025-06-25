@@ -38,7 +38,7 @@ class Solution {
         ListNode firstHalf = head;
         while (reversedHalf != null) {
             if (firstHalf.val != reversedHalf.val) {
-                reverseList(reversedHalf);
+                // reverseList(reversedHalf);
                 return false;
             }
             firstHalf = firstHalf.next;
