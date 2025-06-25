@@ -10,14 +10,39 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        ListNode clone = cloneList(head);
-        ListNode reversedHead = reverseList(clone);
-        ListNode temp1 = head, temp2 = reversedHead;
-        while (temp1 != null && temp2 != null) {
-            if (temp1.val != temp2.val)
+        // Brute => Time -> O(2N) && Space -> O(N)
+        // Stack<Integer> st = new Stack<>();
+        // ListNode temp = head;
+        // while (temp != null) {
+        //     st.push(temp.data);
+        //     temp = temp.next;
+        // }
+        // temp = head;
+        // while (temp != null) {
+        //     if (temp.data != st.peek()) {
+        //         return false;
+        //     }
+        //     st.pop();
+        //     temp = temp.next;
+        // }
+        // return true;
+
+        if (head == null || head.next == null)
+            return true;
+        ListNode fast = head, slow = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode reversedHalf = reverseList(slow.next);
+        ListNode firstHalf = head;
+        while (reversedHalf != null) {
+            if (firstHalf.val != reversedHalf.val) {
+                reverseList(reversedHalf);
                 return false;
-            temp1 = temp1.next;
-            temp2 = temp2.next;
+            }
+            firstHalf = firstHalf.next;
+            reversedHalf = reversedHalf.next;
         }
         return true;
     }
@@ -29,20 +54,6 @@ class Solution {
         ListNode front = head.next;
         front.next = head;
         head.next = null;
-        return newHead;
-    }
-
-    private ListNode cloneList(ListNode head) {
-        if (head == null)
-            return null;
-        ListNode newHead = new ListNode(head.val);
-        ListNode current = newHead;
-        head = head.next;
-        while (head != null) {
-            current.next = new ListNode(head.val);
-            current = current.next;
-            head = head.next;
-        }
         return newHead;
     }
 }
