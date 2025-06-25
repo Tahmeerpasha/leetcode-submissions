@@ -11,6 +11,19 @@
  */
 public class Solution {
     public boolean hasCycle(ListNode head) {
+        // Brute => Time -> O(n) && Space -> O(n)
+        // Node temp = head;
+        // Map<Node, int> nodeMap = new HashMap<>();
+        // while (temp != null) {
+        //     if (nodeMap.containsKey(temp)) {
+        //         return true;
+        //     }
+        //     nodeMap.put(temp, 1);
+        //     temp = temp.next;
+        // }
+        // return false;
+
+        // Better => Time -> O(n) && Space -> O(1)
         // int min = Integer.MIN_VALUE;
         // ListNode temp = head;
         // if (head == null || head.next == null)
