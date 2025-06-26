@@ -35,28 +35,28 @@ class Solution {
         middleNode.next = null;
         ListNode left = sortList(leftHalf);
         ListNode right = sortList(rightHalf);
-        return merge2LL(left, right);
+        return mergeTwoLists(left, right);
     }
 
-    ListNode merge2LL(ListNode left, ListNode right) {
-        ListNode mergedHead = new ListNode(-1);
-        ListNode temp = mergedHead;
-        while (left != null && right != null) {
-            if (left.val <= right.val) {
-                temp.next = left;
-                temp = left;
-                left = left.next;
+    ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummyNode = new ListNode(-1);
+        ListNode temp = dummyNode;
+        while (list1 != null && list2 != null) {
+            if (list1.val <= list2.val) {
+                temp.next = list1;
+                temp = list1;
+                list1 = list1.next;
             } else {
-                temp.next = right;
-                temp = right;
-                right = right.next;
+                temp.next = list2;
+                temp = list2;
+                list2 = list2.next;
             }
         }
-        if (left != null)
-            temp.next = left;
+        if (list1 != null)
+            temp.next = list1;
         else
-            temp.next = right;
-        return mergedHead.next;
+            temp.next = list2;
+        return dummyNode.next;
     }
 
     ListNode findMiddleOfLL(ListNode head) {
