@@ -10,11 +10,13 @@
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        if(lists.length == 0)return null;
-        if(lists.length == 1)return lists[0];
+        if (lists.length == 0)
+            return null;
+        if (lists.length == 1)
+            return lists[0];
         ListNode firstMergedList = mergeTwoLists(lists[0], lists[1]);
-        for(int i=2; i<lists.length; i++){
-           firstMergedList = mergeTwoLists(firstMergedList, lists[i]);
+        for (int i = 2; i < lists.length; i++) {
+            firstMergedList = mergeTwoLists(firstMergedList, lists[i]);
         }
         return firstMergedList;
     }
