@@ -29,7 +29,7 @@ public class Solution {
         // Better => Time -> O(n+2m) && Space -> O(1)
         /**
         Time complexity: O(2max(length of list1,length of list2))+O(abs(length of list1-length of list2))+O(min(length of list1,length of list2))
-Reason: Finding the length of both lists takes max(length of list1, length of list2) because it is found simultaneously for both of them. Moving the head pointer ahead by a difference of them. The next one is for searching.
+        Reason: Finding the length of both lists takes max(length of list1, length of list2) because it is found simultaneously for both of them. Moving the head pointer ahead by a difference of them. The next one is for searching.
          */
         // // Step 1: Calculate lengths
         // int lenA = getLength(headA);
@@ -56,8 +56,11 @@ Reason: Finding the length of both lists takes max(length of list1, length of li
 
         // return null;
 
-        if(temp1 == null || temp2 == null)return null;
-        while(temp1 != temp2){
+        // Optimal => Time -> O(2*max(length of list1,length of list2)) && Space -> O(1)
+        // Reason: Uses the same concept of the difference of lengths of two lists.
+        if (temp1 == null || temp2 == null)
+            return null;
+        while (temp1 != temp2) {
             // temp1 = temp1.next;
             // temp2 = temp2.next;
             // if(temp1 == temp2)return temp1;
