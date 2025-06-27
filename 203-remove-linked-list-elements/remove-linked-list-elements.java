@@ -10,26 +10,25 @@
  */
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
+        // Optimal -> Time => O(n) && Space -> O(1)
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode curr = dummy;
+
+        while (curr.next != null) {
+            if (curr.next.val == val) {
+                curr.next = curr.next.next;
+            } else {
+                curr = curr.next;
+            }
+        }
+
+        return dummy.next;
+
+        // Recursive approach => Time -> O(n) && Space -> O(n) -> auxilary space
         // if (head == null)
         //     return null;
-        // ListNode prev = null, curr = head;
-        // while (curr != null) {
-        //     if (curr.val == val) {
-        //         if (prev == null)
-        //             head = head.next;
-        //         else
-        //             prev.next = curr.next;
-        //         curr = curr.next;
-        //         continue;
-        //     }
-        //     prev = curr;
-        //     curr = curr.next;
-        // }
-        // return head;
-
-        if (head == null)
-            return null;
-        head.next = removeElements(head.next, val);
-        return head.val == val ? head.next : head;
+        // head.next = removeElements(head.next, val);
+        // return head.val == val ? head.next : head;
     }
 }
