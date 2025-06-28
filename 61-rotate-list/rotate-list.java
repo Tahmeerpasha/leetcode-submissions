@@ -12,18 +12,33 @@ class Solution {
     public ListNode rotateRight(ListNode head, int k) {
         if (head == null || head.next == null)
             return head;
-        int len = 0;
-        ListNode temp = head;
-        while (temp != null) {
-            temp = temp.next;
+        int len = 1;
+        ListNode last = head;
+        while (last.next != null) {
+            last = last.next;
             len++;
         }
-        temp = head;
         k = k % len;
         if (k == 0)
             return head;
 
-        return rotateKTimes(head, k);
+        // Better
+        // return rotateKTimes(head, k);
+
+        // Optimal
+        int newLastCount = len - k;
+        ListNode newLastNode = head;
+        ListNode prevLastNode = null;
+        while (newLastCount > 0) {
+            prevLastNode = newLastNode;
+            newLastNode = newLastNode.next;
+            newLastCount--;
+        }
+        last.next = head;
+        head = prevLastNode.next;
+        prevLastNode.next = null;
+
+        return head;
     }
 
     ListNode rotateKTimes(ListNode head, int k) {
