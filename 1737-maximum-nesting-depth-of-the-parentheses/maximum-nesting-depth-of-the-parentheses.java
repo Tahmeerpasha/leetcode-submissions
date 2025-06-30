@@ -4,9 +4,9 @@ class Solution {
         for (char c : s.toCharArray()) {
             if (c == '(')
                 cnt++;
-            max = Math.max(max, cnt);
             if (c == ')')
                 cnt--;
+            max = Math.max(max, cnt);
         }
         return max;
     }
