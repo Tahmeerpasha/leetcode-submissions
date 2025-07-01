@@ -23,9 +23,8 @@ class Solution {
         // return last;
 
         ListNode newHead = reverseList(head.next);
-        ListNode temp = newHead;
-        while(temp.next != null) temp = temp.next;
-        temp.next = head;
+        ListNode front = head.next;
+        front.next = head;
         head.next = null;
         return newHead;
     }
