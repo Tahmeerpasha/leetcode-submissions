@@ -13,15 +13,17 @@ class Solution {
         if (head == null || head.next == null)
             return head;
 
-        // ListNode last = null, curr = head;
-        // while (curr != null) {
-        //     ListNode next = curr.next;
-        //     curr.next = last;
-        //     last = curr;
-        //     curr = next;
+        // Iterative => Time -> O(N) && Space -> O(1)
+        // ListNode curr = head, prev = null;
+        // while(curr != null){
+        //     ListNode nextNode = curr.next;
+        //     curr.next = prev;
+        //     prev = curr;
+        //     curr = nextNode;
         // }
-        // return last;
+        // return prev;
 
+        // Recursive => Time -> O(N) && Space -> O(1)
         ListNode newHead = reverseList(head.next);
         ListNode front = head.next;
         front.next = head;
