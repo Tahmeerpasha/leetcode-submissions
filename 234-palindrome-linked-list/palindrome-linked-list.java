@@ -26,7 +26,7 @@ class Solution {
         //     temp = temp.next;
         // }
         // return true;
-        
+
         // Optimal => Time -> O(2N) && Space -> O(N)
         if (head == null || head.next == null)
             return true;
