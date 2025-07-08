@@ -1,10 +1,12 @@
 class Solution {
     public boolean check(int[] nums) {
-        int count = 0;
-        if(nums[0] < nums[nums.length-1])count++;
-        for(int i=0; i<nums.length-1; i++){
-            if(nums[i] > nums[i+1])count++;
+        int sorted = 0;
+        if (nums[nums.length - 1] > nums[0])
+            sorted++;
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] > nums[i + 1])
+                sorted++;
         }
-        return count < 2;
+        return sorted <= 1;
     }
 }
