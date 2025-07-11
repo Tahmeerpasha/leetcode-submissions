@@ -10,14 +10,17 @@ class Solution {
 
         // Optimal -> Hashing || Time = O(n * logn) && Space = O(n)
         Map<Integer, Integer> map = new HashMap<>();
-        for(int i=0; i<nums.length; i++){
+        for (int i = 0; i < nums.length; i++) {
             int more = target - nums[i];
-            if(map.containsKey(more)){
-                return new int[]{i, map.get(more)};
+            if (map.containsKey(more)) {
+                return new int[] { i, map.get(more) };
             }
-            map.put(nums[i],i);
+            map.put(nums[i], i);
         }
 
+/**
+There is a more optimal solution where we can sort the array and use two pointers, But if we've been asked to return the indexes then using hashmaps is the best approach else we can use the two pointers if we don't have to return indexes.
+*/
         return new int[] { -1, -1 };
 
     }
