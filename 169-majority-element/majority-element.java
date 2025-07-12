@@ -1,5 +1,6 @@
 class Solution {
     public int majorityElement(int[] nums) {
+        // Brute -> Time => O(2n) && Space => O(n)
         // Map<Integer, Integer> map = new HashMap<>();
         // for (int num : nums) {
         //     map.put(num, map.getOrDefault(num, 0) + 1);
@@ -10,6 +11,8 @@ class Solution {
         //     }
         // }
         // return -1;
+
+        // Optimal -> Time => O(2n) && Space => O(1)
         int candidate = 0, count = 0;
         for (int num : nums) {
             if (count == 0) {
