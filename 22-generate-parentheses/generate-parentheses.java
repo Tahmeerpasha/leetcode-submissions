@@ -1,6 +1,7 @@
 class Solution {
     public List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<>();
+        // Time and Space -> O(2^2n)
         generate(result, n, 0, 0, "");
         return result;
     }
