@@ -8,8 +8,8 @@ class Solution {
 
     void generateSubSets(int[] nums, int index, List<List<Integer>> result, List<Integer> currList) {
         // Base case
-        if (index == nums.length) {
-            result.add(new ArrayList<>(currList));
+        if (index >= nums.length) {
+            result.add(new ArrayList<>(currList)); // Deep copy
             return;
         }
 
