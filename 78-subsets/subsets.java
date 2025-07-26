@@ -1,6 +1,7 @@
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
+        // Time and Space -> O(n * 2^n)
         generateSubSets(nums, 0, result, new ArrayList<>());
         return result;
     }
@@ -11,11 +12,15 @@ class Solution {
             result.add(new ArrayList<>(currList));
             return;
         }
+
         // Left recursive call
         currList.add(nums[index]);
         generateSubSets(nums, index + 1, result, currList);
-        // Right recursive call
+
+        // Backtrack step
         currList.remove(currList.size() - 1);
+
+        // Right recursive call
         generateSubSets(nums, index + 1, result, currList);
     }
 
