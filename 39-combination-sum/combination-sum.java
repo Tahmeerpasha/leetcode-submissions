@@ -13,7 +13,7 @@ class Solution {
             return;
         }
 
-        if (target >= 0 && index < candidates.length) {
+        if (target > 0 && index < candidates.length) {
             // Pick the number
             currList.add(candidates[index]);
             findCS(candidates, target - candidates[index], index, result, currList);
