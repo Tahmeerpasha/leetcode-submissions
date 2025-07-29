@@ -18,8 +18,10 @@ class Solution {
             return; // we only use digits 1-9
 
         currList.add(index);
+        // Pick current number
         backtrack(arraySize, target, result, currList, index + 1, sum + index);
         currList.remove(currList.size() - 1);
+        // Not Pick current number
         backtrack(arraySize, target, result, currList, index + 1, sum);
     }
 }
