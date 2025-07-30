@@ -1,6 +1,7 @@
 class Solution {
     public List<List<String>> partition(String s) {
         List<List<String>> result = new ArrayList<>();
+        // Time -> O( (2^n) *k*(n/2) ) && Space -> O(k * x)
         backtrack(s, 0, new ArrayList<>(), result);
         return result;
     }
@@ -12,9 +13,9 @@ class Solution {
         }
         for (int i = index; i < s.length(); ++i) {
             if (isPalindrome(s, index, i)) {
-                path.add(s.substring(index, i + 1));
+                path.add(s.substring(index, i + 1)); // pick
                 backtrack(s, i + 1, path, result);
-                path.remove(path.size() - 1);
+                path.remove(path.size() - 1); // not pick
             }
         }
     }
