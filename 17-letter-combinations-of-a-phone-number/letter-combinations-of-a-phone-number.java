@@ -3,30 +3,36 @@ class Solution {
         if (digits.length() == 0)
             return new ArrayList<>();
 
-        Map<Character, List<String>> numMap = new HashMap<>();
-        numMap.put('2', Arrays.asList("a", "b", "c"));
-        numMap.put('3', Arrays.asList("d", "e", "f"));
-        numMap.put('4', Arrays.asList("g", "h", "i"));
-        numMap.put('5', Arrays.asList("j", "k", "l"));
-        numMap.put('6', Arrays.asList("m", "n", "o"));
-        numMap.put('7', Arrays.asList("p", "q", "r", "s"));
-        numMap.put('8', Arrays.asList("t", "u", "v"));
-        numMap.put('9', Arrays.asList("w", "x", "y", "z"));
+        String[] numMap = new String[] {
+                "", // 0
+                "", // 1
+                "abc", // 2
+                "def", // 3
+                "ghi", // 4
+                "jkl", // 5
+                "mno", // 6
+                "pqrs", // 7
+                "tuv", // 8
+                "wxyz" // 9
+        };
 
         List<String> result = new ArrayList<>();
-        backtrack(digits, 0, "", numMap, result);
+        // Time -> O(4^n) && Space -> O(4^n + n)
+        backtrack(digits, 0, new StringBuilder(), numMap, result);
         return result;
     }
 
-    void backtrack(String digits, int index, String path, Map<Character, List<String>> map, List<String> result) {
+    void backtrack(String digits, int index, StringBuilder path, String[] map, List<String> result) {
         if (index == digits.length()) {
-            result.add(path);
+            result.add(path.toString());
             return;
         }
 
-        char digit = digits.charAt(index);
-        for (String letter : map.get(digit)) {
-            backtrack(digits, index + 1, path + letter, map, result);
+        String letters = map[digits.charAt(index) - '0'];
+        for (char c : letters.toCharArray()) {
+            path.append(c); // pick
+            backtrack(digits, index + 1, path, map, result);
+            path.deleteCharAt(path.length() - 1); // backtrack (unpick)
         }
     }
 }
