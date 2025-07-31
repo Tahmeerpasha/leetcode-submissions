@@ -5,7 +5,9 @@ class Solution {
             for (int j = 0; j < n; j++)
                 board[i][j] = '.';
         List<List<String>> res = new ArrayList<List<String>>();
+        // Brute - Time -> O(N! * N) && Space -> O(n^2)
         // dfs(0, board, res);
+        // Optimal - Time -> O(N! * N) && Space -> O(n)
         int leftRow[] = new int[n];
         int upperDiagonal[] = new int[2 * n - 1];
         int lowerDiagonal[] = new int[2 * n - 1];
