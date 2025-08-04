@@ -1,30 +1,7 @@
 public class Solution {
-
-    // Iterative solution
-    // public double myPow(double x, int n) {
-    //     double ans = 1.0;
-    //     // We use long because INT_MIN will overflow if converted to positive number
-    //     long nn = n;
-    //     if (nn < 0)
-    //         nn = -1 * nn;
-    //     while (nn > 0) {
-    //         if (nn % 2 == 1) {
-    //             // If power is odd then subtract by 1
-    //             ans = ans * x;
-    //             nn = nn - 1;
-    //         } else {
-    //             // If power is even then divide by 2
-    //             x = x * x;
-    //             nn = nn / 2;
-    //         }
-    //     }
-    //     // Finally if the power was negative then answer should be 1/ans
-    //     if (n < 0)
-    //         ans = (double) (1.0) / (double) (ans);
-
-    //     return ans;
-    // }
-
+    // Iterative implementation of x^n (x raised to power n) => Time -> O(logn)
+    // Binary Exponentiation
+    // Watch to understand approach -> https://youtu.be/WBzZCm46mFo?si=EkRgBQtmBL12BnKf
     public double myPow(double x, int n) {
         if (n == 0)
             return 1;
@@ -45,6 +22,7 @@ public class Solution {
         }
         return ans;
     }
+
     // Recursive implementation of x^n (x raised to power n) => Time -> O(logn)
     // Fast Exponentiation (a.k.a Exponentiation by Squaring)
     // Watch to understand approach -> https://youtu.be/g9YQyYi4IQQ?si=0TewIEUkZeDH0scR
@@ -83,6 +61,31 @@ public class Solution {
     //     else {
     //         return half * half * x;
     //     }
+    // }
+
+    // Iterative solution for the recursive solution intuition
+    // public double myPow(double x, int n) {
+    //     double ans = 1.0;
+    //     // We use long because INT_MIN will overflow if converted to positive number
+    //     long nn = n;
+    //     if (nn < 0)
+    //         nn = -1 * nn;
+    //     while (nn > 0) {
+    //         if (nn % 2 == 1) {
+    //             // If power is odd then subtract by 1
+    //             ans = ans * x;
+    //             nn = nn - 1;
+    //         } else {
+    //             // If power is even then divide by 2
+    //             x = x * x;
+    //             nn = nn / 2;
+    //         }
+    //     }
+    //     // Finally if the power was negative then answer should be 1/ans
+    //     if (n < 0)
+    //         ans = (double) (1.0) / (double) (ans);
+
+    //     return ans;
     // }
 
 }
