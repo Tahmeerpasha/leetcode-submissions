@@ -53,9 +53,18 @@ class Solution {
             return result * sign;
         }
 
+        // Subtracting a digit in char with '0' will give that value in integer
         int digit = s.charAt(index) - '0';
 
         // Handle overflow cases
+        /**
+        Why this condition?? - result > (Integer.MAX_VALUE - digit) / 10
+        1. result * 10 + digit
+        -> We can't use this as it'll overflow so,
+        2. result * 10 + digit > Integer.MAX_VALUE
+        -> Same condition but in other form as above
+        3. result > (Integer.MAX_VALUE - digit) / 10
+         */
         if (result > (Integer.MAX_VALUE - digit) / 10) {
             return (sign == 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
         }
