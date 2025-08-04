@@ -25,45 +25,65 @@ public class Solution {
     //     return ans;
     // }
 
-    // Recursive implementation of x^n (x raised to power n)
-    // Fast Exponentiation (a.k.a Exponentiation by Squaring)
-    // Watch to understand approach -> https://youtu.be/g9YQyYi4IQQ?si=0TewIEUkZeDH0scR
     public double myPow(double x, int n) {
-        // Convert n to long to safely handle edge case like Integer.MIN_VALUE,
-        // because -Integer.MIN_VALUE overflows int range
-        long N = n;
-
-        // If power is negative, invert the base and make power positive
-        if (N < 0) {
-            x = 1 / x; // e.g., 2^-3 => (1/2)^3
-            N = -N;
-        }
-
-        // Call helper to compute x^N using fast exponentiation
-        return fastPow(x, N);
-    }
-
-    private double fastPow(double x, long n) {
-        // Base case: anything raised to power 0 is 1
         if (n == 0)
             return 1;
-
-        // Base case: 0 raised to any power is 0
         if (x == 0)
             return 0;
-
-        // Recursively compute half power: x^(n/2)
-        double half = fastPow(x, n / 2);
-
-        // If power is even: x^n = (x^(n/2)) * (x^(n/2)) => half * half
-        if (n % 2 == 0) {
-            return half * half;
+        long binForm = n;
+        if (binForm < 0) {
+            x = 1 / x;
+            binForm = -binForm;
         }
-        // If power is odd: x^n = (x^(n/2)) * (x^(n/2)) * x => half * half * x
-        else {
-            return half * half * x;
+        double ans = 1.0;
+        while (binForm > 0) {
+            if (binForm % 2 == 1) { // for 5 -> 1 0 1 (binary representation of 1)
+                ans = ans * x;
+            }
+            x = x * x;
+            binForm /= 2;
         }
+        return ans;
     }
+    // Recursive implementation of x^n (x raised to power n) => Time -> O(logn)
+    // Fast Exponentiation (a.k.a Exponentiation by Squaring)
+    // Watch to understand approach -> https://youtu.be/g9YQyYi4IQQ?si=0TewIEUkZeDH0scR
+    // public double myPow(double x, int n) {
+    //     // Convert n to long to safely handle edge case like Integer.MIN_VALUE,
+    //     // because -Integer.MIN_VALUE overflows int range
+    //     long N = n;
+
+    //     // If power is negative, invert the base and make power positive
+    //     if (N < 0) {
+    //         x = 1 / x; // e.g., 2^-3 => (1/2)^3
+    //         N = -N;
+    //     }
+
+    //     // Call helper to compute x^N using fast exponentiation
+    //     return fastPow(x, N);
+    // }
+
+    // private double fastPow(double x, long n) {
+    //     // Base case: anything raised to power 0 is 1
+    //     if (n == 0)
+    //         return 1;
+
+    //     // Base case: 0 raised to any power is 0
+    //     if (x == 0)
+    //         return 0;
+
+    //     // Recursively compute half power: x^(n/2)
+    //     double half = fastPow(x, n / 2);
+
+    //     // If power is even: x^n = (x^(n/2)) * (x^(n/2)) => half * half
+    //     if (n % 2 == 0) {
+    //         return half * half;
+    //     }
+    //     // If power is odd: x^n = (x^(n/2)) * (x^(n/2)) * x => half * half * x
+    //     else {
+    //         return half * half * x;
+    //     }
+    // }
 
 }
 
