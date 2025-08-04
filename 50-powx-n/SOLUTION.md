@@ -1,99 +1,153 @@
-### ✅ Problem:
+## 🔢 Problem Statement
 
-Implement the function `myPow(x, n)` which calculates `x^n` (x raised to the power n), where:
+Implement the function `pow(x, n)` which calculates `x` raised to the power `n` (i.e., $x^n$).
 
-* `x` is a double,
-* `n` is an integer (can be negative),
-* Avoid library functions like `Math.pow()`.
+* You must not use built-in library functions like `Math.pow`.
+* Handle edge cases like negative powers and integer overflow (`n = Integer.MIN_VALUE`).
 
 ---
 
-## ✅ **1. Iterative Approach**
+## 🔨 Brute Force Approach
 
-### 🔍 Key Idea:
+### 💡 Idea
 
-Use **Exponentiation by Squaring** to reduce the time complexity from O(n) to **O(log n)**.
+Multiply `x` with itself `n` times.
 
-### 🧠 Logic:
+* If `n` is negative, invert `x` and make `n` positive.
 
-* If `n` is negative, invert `x` and take absolute of `n` using `long` to handle `Integer.MIN_VALUE`.
-* Use a loop:
+### 🧠 Logic
 
-  * If `n` is odd: `ans = ans * x; n--`
-  * If `n` is even: square `x` and halve `n`.
+* $x^n = x \times x \times \dots \times x$ (n times)
+* If `n` < 0 → use `1/x` and `-n`
 
-### 📦 Code Highlights:
+### 🧾 Code
 
 ```java
-double ans = 1.0;
-long nn = n;
-if (nn < 0) {
-    nn = -nn;
-    x = 1 / x;
-}
-while (nn > 0) {
-    if (nn % 2 == 1) {
-        ans *= x;
-        nn--;
-    } else {
-        x *= x;
-        nn /= 2;
+public double myPow(double x, int n) {
+    long nn = n;
+    if (nn < 0) {
+        x = 1 / x;
+        nn = -nn;
     }
+    double ans = 1.0;
+    for (long i = 0; i < nn; i++) {
+        ans *= x;
+    }
+    return ans;
 }
 ```
 
-### 🧮 Complexity:
+### ⏱️ Time Complexity
 
-* **Time:** `O(log n)`
-* **Space:** `O(1)` (no recursion stack used)
+* **O(n)**
+
+### 🗂️ Space Complexity
+
+* **O(1)**
 
 ---
 
-## ✅ **2. Recursive Approach (Exponentiation by Squaring)**
+## ⚡ Better Approach: Recursive Fast Exponentiation (Exponentiation by Squaring)
 
-### 🧠 Logic:
+### 💡 Idea
 
-* Base case: If `n == 0`, return 1.
-* Recursive step:
+Use divide and conquer:
 
-  * Compute `half = myPow(x, n/2)`
-  * If `n` is even: return `half * half`
-  * If `n` is odd: return `half * half * x`
+* $x^n = (x^{n/2})^2$ if `n` is even
+* $x^n = (x^{n/2})^2 \times x$ if `n` is odd
 
-### 🔁 Handles:
-
-* Negative powers by converting `x` to `1/x` and `n` to `-n`.
-
-### 📦 Code Highlights:
+### 🧾 Code
 
 ```java
-if (n == 0) return 1;
-long N = n;
-if (N < 0) {
-    x = 1 / x;
-    N = -N;
+public double myPow(double x, int n) {
+    long N = n;
+    if (N < 0) {
+        x = 1 / x;
+        N = -N;
+    }
+    return fastPow(x, N);
 }
-return fastPow(x, N);
 
 private double fastPow(double x, long n) {
     if (n == 0) return 1;
     double half = fastPow(x, n / 2);
-    return (n % 2 == 0) ? half * half : half * half * x;
+    if (n % 2 == 0)
+        return half * half;
+    else
+        return half * half * x;
 }
 ```
 
-### 🧮 Complexity:
+### ⏱️ Time Complexity
 
-* **Time:** `O(log n)` — cuts power in half each step
-* **Space:** `O(log n)` — due to recursive call stack
+* **O(log n)**
+
+### 🗂️ Space Complexity
+
+* **O(log n)** (due to recursion stack)
 
 ---
 
-### ✅ Summary Table:
+## 🚀 Optimal Approach: Iterative Binary Exponentiation
 
-| Approach  | Time Complexity | Space Complexity | Notes                                 |
-| --------- | --------------- | ---------------- | ------------------------------------- |
-| Iterative | O(log n)        | O(1)             | Faster, avoids recursion              |
-| Recursive | O(log n)        | O(log n)         | Elegant, but extra space due to stack |
+### 💡 Idea
+
+Same as the recursive approach but implemented iteratively to avoid recursion overhead and stack usage.
+
+### 🧾 Code
+
+```java
+public double myPow(double x, int n) {
+    if (n == 0) return 1;
+    if (x == 0) return 0;
+
+    long binForm = n;
+    if (binForm < 0) {
+        x = 1 / x;
+        binForm = -binForm;
+    }
+
+    double ans = 1.0;
+    while (binForm > 0) {
+        if (binForm % 2 == 1)
+            ans *= x;
+        x *= x;
+        binForm /= 2;
+    }
+    return ans;
+}
+```
+
+### ⏱️ Time Complexity
+
+* **O(log n)**
+
+### 🗂️ Space Complexity
+
+* **O(1)**
+
+---
+
+## 🌲 Recursion Tree Visualization (for Recursive Version)
+
+Example: `x = 2, n = 5`
+
+```
+fastPow(2, 5)
+├── fastPow(2, 2)
+│   └── fastPow(2, 1)
+│       └── fastPow(2, 0) → 1
+│       → returns 1 * 1 * 2 = 2
+│   → returns 2 * 2 = 4
+→ returns 4 * 4 * 2 = 32
+```
+
+---
+
+## 🧠 Key Notes
+
+* Always convert `n` to `long` to avoid overflow (`-Integer.MIN_VALUE` overflows `int`).
+* Use `1/x` when the power is negative.
+* Multiplication-based squaring reduces complexity from **O(n)** to **O(log n)**.
 
 ---
