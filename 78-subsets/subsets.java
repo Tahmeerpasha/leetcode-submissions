@@ -1,13 +1,11 @@
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
-        // Using recursion
+        // Time and Space -> O(n * 2^n)
+        return generateSubSetsUsingBitM(nums, result);
         // Time and Space -> O(n * 2^n)
         // generateSubSetsUsingRecursion(nums, 0, result, new ArrayList<>());
         // return result;
-        // Using Bit Manipulation
-        // Time and Space -> O(n * 2^n)
-        return generateSubSetsUsingBitM(nums, result);
     }
 
     List<List<Integer>> generateSubSetsUsingBitM(int[] nums, List<List<Integer>> result) {
