@@ -2,6 +2,7 @@ class Solution {
     public int divide(int dividend, int divisor) {
         if (dividend == divisor)
             return 1;
+        if (divisor == 1)return dividend;
 
         // Handle sign
         boolean sign = (dividend >= 0) == (divisor >= 0);
@@ -12,17 +13,17 @@ class Solution {
 
         long quotient = 0;
 
-        while (n >= d) {
+        while (n >= d) { // run this till numerator is greater or equal to denominator
             int cnt = 0;
-            while (n >= (d << (cnt + 1))) {
+            while (n >= (d << (cnt + 1))) {// Checking for one step ahead so we can stop count at the exact step 
                 cnt++;
             }
             quotient += 1L << cnt;
-            n -= d << cnt;
+            n -= d << cnt; // Removing the (3 x 2^cnt) from n
         }
 
         // Handle overflow
-        if (quotient >= (1L << 31)) {
+        if (quotient >= (1L << 31)) { // If quotient is greater than 2^31 means overflow
             return sign ? Integer.MAX_VALUE : Integer.MIN_VALUE;
         }
 
