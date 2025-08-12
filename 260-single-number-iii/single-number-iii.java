@@ -1,5 +1,7 @@
 class Solution {
     public int[] singleNumber(int[] nums) {
+        // Brute - Using hashmaps
+        // Optimal - Time => O(2N) && Space -> O(1)
         int b1 = 0, b2 = 0;
         long xor = 0;
         for (int num : nums)
