@@ -15,8 +15,6 @@ class Solution {
         // return ans;
 
         // Optimal
-        if (nums.length <= 1)
-            return nums[0];
         Arrays.sort(nums);
         for (int i = 1; i < nums.length; i += 3) {
             if (nums[i - 1] != nums[i])
