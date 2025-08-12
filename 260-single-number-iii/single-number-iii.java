@@ -1,15 +1,16 @@
 class Solution {
     public int[] singleNumber(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
+        int b1 = 0, b2 = 0;
+        long xor = 0;
+        for (int num : nums)
+            xor ^= num;
+        int rightmost = (int) ((xor & xor - 1) ^ xor);
         for (int num : nums) {
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            if ((num & rightmost) != 0)
+                b1 ^= num;
+            else
+                b2 ^= num;
         }
-        int[] ans = new int[2];
-        int i = 0;
-        for (int key : map.keySet()) {
-            if (map.get(key) == 1)
-                ans[i++] = key;
-        }
-        return ans;
+        return new int[] { b1, b2 };
     }
 }
