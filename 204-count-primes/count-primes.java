@@ -3,7 +3,7 @@ class Solution {
         if (n <= 2)
             return 0;
         int[] primes = new int[n];
-        for (int i = 0; i < primes.length; i++)
+        for (int i = 2; i < primes.length; i++)
             primes[i] = 1;
 
         for (int i = 2; i * i < n; i++) {
