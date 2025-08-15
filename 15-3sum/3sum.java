@@ -20,7 +20,7 @@ class Solution {
         //         }
         //     }
         // }
-       
+
         // Better -> O(n^2) & Space -> O(N) + O(2x(no.of.triplets))
         // for(int i=0; i<n; i++){
         //     Set<Integer> set = new HashSet<>();
@@ -40,13 +40,15 @@ class Solution {
 
         // Optimal -> Time => O(n^2) && Space => O(1)
         Arrays.sort(nums);
-        if(n < 3)return new ArrayList<>();
-        for(int i=0; i < n; i++){
-            if(i>0 && nums[i] == nums[i-1])continue;
-            int j = i+1, k = n-1;
-            while(j<k){
+        if (n < 3)
+            return new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+            int j = i + 1, k = n - 1;
+            while (j < k) {
                 int sum = nums[i] + nums[j] + nums[k];
-                if(sum == 0){
+                if (sum == 0) {
                     List<Integer> triplets = new ArrayList<>(3);
                     triplets.add(nums[i]);
                     triplets.add(nums[j]);
@@ -54,10 +56,14 @@ class Solution {
                     result.add(triplets);
                     j++;
                     k--;
-                    while(j<k && nums[j] == nums[j-1])j++;
-                    while(j<k && nums[k] == nums[k+1])k--;
-                }else if(sum < 0)j++;
-                else k--;
+                    while (j < k && nums[j] == nums[j - 1])
+                        j++;
+                    while (j < k && nums[k] == nums[k + 1])
+                        k--;
+                } else if (sum < 0)
+                    j++;
+                else
+                    k--;
             }
         }
         return new ArrayList<>(result);
