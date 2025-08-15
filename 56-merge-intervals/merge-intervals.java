@@ -2,7 +2,7 @@ class Solution {
     public int[][] merge(int[][] intervals) {
         int n = intervals.length;
         List<int[]> answer = new ArrayList<>();
-        Arrays.sort(intervals, (a,b) -> a[0]-b[0]);
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
         // Brute force -> Time = O(2n) && Space = O(n)
         // for(int i=0; i<n; i++){
         // select an interval:
@@ -21,15 +21,15 @@ class Solution {
         // }
 
         // Optimal -> Time = O(n) && Space -> O(n)
-        for(int i=0; i<n; i++){
+        for (int i = 0; i < n; i++) {
             // if the current interval does not
             // lie in the last interval:
-            if(answer.isEmpty() || intervals[i][0] > answer.get(answer.size()-1)[1])
+            if (answer.isEmpty() || intervals[i][0] > answer.get(answer.size() - 1)[1])
                 answer.add(intervals[i]);
             else
-            // if the current interval
-            // lies in the last interval:
-                answer.get(answer.size()-1)[1] = Math.max(answer.get(answer.size()-1)[1], intervals[i][1]);
+                // if the current interval
+                // lies in the last interval:
+                answer.get(answer.size() - 1)[1] = Math.max(answer.get(answer.size() - 1)[1], intervals[i][1]);
         }
 
         return answer.toArray(new int[answer.size()][]);
