@@ -2,11 +2,11 @@ class Solution {
     public int search(int[] a, int x) {
         int low = 0, high = a.length - 1;
         while (low <= high) {
-            int mid = (low+high) / 2;
+            int mid = (low + high) / 2;
             if (a[mid] == x)
                 return mid;
+            // Left sorted
             if (a[low] <= a[mid]) {
-                // Left sorted
                 if (a[low] <= x && x <= a[mid]) {
                     high = mid - 1;
                 } else
