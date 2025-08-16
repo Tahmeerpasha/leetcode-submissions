@@ -4,18 +4,18 @@ class Solution {
         while (low <= high) {
             int mid = (low + high) / 2;
             // If in the sorted part then low will always have the minimum value
-            if(a[low] <= a[high]){
+            if (a[low] <= a[high]) {
                 min = Math.min(min, a[low]);
                 break;
             }
             // Left sorted then take the min element and eliminate the left space
             if (a[low] <= a[mid]) {
                 min = Math.min(min, a[low]);
-                low = mid+1;
+                low = mid + 1;
             } else {
                 // Right sorted then take the min element and eliminate the right space
                 min = Math.min(min, a[mid]);
-                high = mid-1;
+                high = mid - 1;
             }
         }
         return min;
