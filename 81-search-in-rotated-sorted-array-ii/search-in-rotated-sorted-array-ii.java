@@ -6,7 +6,7 @@ class Solution {
             if (a[mid] == x)
                 return true;
             // If same values then shrink the search space
-            if(a[low] == a[mid] && a[high] == a[mid]){
+            if (a[low] == a[mid] && a[high] == a[mid]) {
                 low++;
                 high--;
                 continue;
