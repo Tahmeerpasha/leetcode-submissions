@@ -2,7 +2,8 @@ class Solution {
     public int smallestDivisor(int[] nums, int threshold) {
         int n = nums.length;
         int low = 1, high = max(nums);
-        if(n > threshold)return -1;
+        if (n > threshold)
+            return -1;
         // Brute => Time=O(N * (high-low+1)) && Space = O(1)
         // for(int i=low; i<=high; i++){
         //     int sum = sumOfDivision(nums, i);
