@@ -1,95 +1,159 @@
-// class Pair {
-//     int x, y;
+// Brute Force: 
+// getMin() -> O(N)
+// Space -> O(N)
+// -----------------------------
 
-//     Pair(int x, int y) {
-//         this.x = x;
-//         this.y = y;
-//     }
-// }
+// Better Approach: (Pair method)
+// Push, Pop, Top, getMin -> O(1)
+// Space -> O(2N) [storing val + min]
+// -----------------------------
 
-// class MinStack {
-//     Stack<Pair> st;
-
-//     public MinStack() {
-//         st = new Stack<>();
-//     }
-
-//     public void push(int x) {
-//         int min;
-//         if (st.isEmpty()) {
-//             min = x;
-//         } else {
-//             min = Math.min(st.peek().y, x);
-//         }
-//         st.push(new Pair(x, min));
-//     }
-
-//     public void pop() {
-//         st.pop();
-//     }
-
-//     public int top() {
-//         return st.peek().x;
-//     }
-
-//     public int getMin() {
-//         return st.peek().y;
-//     }
-// }
+// Optimal Approach: (Encoding Trick)
+// Push, Pop, Top, getMin -> O(1)
+// Space -> O(N)
+// -----------------------------
 
 class MinStack {
-    Stack<Long> st;
-    Long min;
+    // Brute Force
+    // Stack<Integer> bruteSt;
+
+    // Better
+    // static class Pair {
+    //     int val, min;
+
+    //     Pair(int v, int m) {
+    //         val = v;
+    //         min = m;
+    //     }
+    // }
+
+    // Stack<Pair> betterSt;
+
+    // Optimal
+    Stack<Long> optimalSt;
+    long min;
 
     public MinStack() {
-        st = new Stack<>();
+        // bruteSt = new Stack<>();
+        // betterSt = new Stack<>();
+        optimalSt = new Stack<>();
         min = Long.MAX_VALUE;
     }
 
-    public void push(int value) {
-        Long val = Long.valueOf(value);
-        if (st.isEmpty()) {
-            min = val;
-            st.push(val);
+    // -----------------------------------------
+    // PUSH
+    // -----------------------------------------
+    public void push(int val) {
+
+        // Brute Force: Just push the value
+        // Time: O(1), Space: O(N)
+        // bruteSt.push(val);
+
+        // Better: Push value + minSoFar
+        // Time: O(1), Space: O(2N)
+        // if (betterSt.isEmpty())
+        //     betterSt.push(new Pair(val, val));
+        // else
+        //     betterSt.push(new Pair(val, Math.min(val, betterSt.peek().min)));
+
+        // Optimal: Encoding trick
+        // Time: O(1), Space: O(N)
+        long x = val;
+        if (optimalSt.isEmpty()) {
+            optimalSt.push(x);
+            min = x;
         } else {
-            if (val > min)
-                st.push(val);
-            else {
-                st.push((2 * val - min));
-                min = val;
+            if (x >= min) {
+                optimalSt.push(x);
+            } else {
+                optimalSt.push(2 * x - min); // encode
+                min = x;
             }
         }
     }
 
+    // -----------------------------------------
+    // POP
+    // -----------------------------------------
     public void pop() {
-        if (st.isEmpty())
-            return;
-        Long x = st.pop();
-        if (x < min)
-            min = (2 * min - x);
+
+        // Brute Force
+        // Time: O(1)
+        // if (!bruteSt.isEmpty())
+        //     bruteSt.pop();
+
+        // Better
+        // Time: O(1)
+        // if (!betterSt.isEmpty())
+        //     betterSt.pop();
+
+        // Optimal
+        // Time: O(1)
+        if (!optimalSt.isEmpty()) {
+            long top = optimalSt.pop();
+            if (top < min) {
+                min = 2 * min - top; // decode previous min
+            }
+        }
     }
 
+    // -----------------------------------------
+    // TOP
+    // -----------------------------------------
     public int top() {
-        if (st.isEmpty())
-            return -1;
-        Long x = st.peek();
-        if (min < x)
-            return x.intValue();
-        else
-            return min.intValue();
 
+        // Brute Force
+        // Time: O(1)
+        // int bruteTop = bruteSt.isEmpty() ? -1 : bruteSt.peek();
+
+        // Better
+        // Time: O(1)
+        // int betterTop = betterSt.isEmpty() ? -1 : betterSt.peek().val;
+
+        // Optimal
+        // Time: O(1)
+        int optimalTop = -1;
+        if (!optimalSt.isEmpty()) {
+            long top = optimalSt.peek();
+            if (top >= min)
+                optimalTop = (int) top;
+            else
+                optimalTop = (int) min;
+        }
+
+        return optimalTop;
     }
 
+    // -----------------------------------------
+    // GET MIN
+    // -----------------------------------------
     public int getMin() {
-        return min.intValue();
+
+        // Brute Force
+        // Time: O(N)
+        // int bruteMin = Integer.MAX_VALUE;
+        // for (int x : bruteSt)
+        //     bruteMin = Math.min(bruteMin, x);
+        // if (bruteSt.isEmpty())
+        //     bruteMin = -1;
+
+        // Better
+        // Time: O(1)
+        // int betterMin = betterSt.isEmpty() ? -1 : betterSt.peek().min;
+
+        // Optimal
+        // Time: O(1)
+        int optimalMin = optimalSt.isEmpty() ? -1 : (int) min;
+
+        return optimalMin;
     }
 }
 
 /**
- * Your MinStack object will be instantiated and called as such:
+ * Usage:
  * MinStack obj = new MinStack();
  * obj.push(val);
  * obj.pop();
- * int param_3 = obj.top();
- * int param_4 = obj.getMin();
+ * int top = obj.top();
+ * int min = obj.getMin();
  */
