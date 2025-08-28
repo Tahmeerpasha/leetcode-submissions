@@ -46,21 +46,22 @@ class Solution {
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
         Map<Integer, Integer> nextGreater = new HashMap<>();
         Stack<Integer> st = new Stack<>();
+        int n1 = nums1.length, k = n1 - 1;
+        int n2 = nums2.length;
+        // Step 1 -> Traverse nums2 and fill nextGreater map
+        for (int i = n2 - 1; i >= 0; i--) {
+            while (st.size() > 0 && st.peek() <= nums2[i])
+                st.pop();
 
-        // Traverse nums2 and fill nextGreater map
-        for (int num : nums2) {
-            while (!st.isEmpty() && st.peek() < num) {
-                nextGreater.put(st.pop(), num);
+            if (st.isEmpty()) {
+                nextGreater.put(nums2[i], -1);
+            } else {
+                nextGreater.put(nums2[i], st.peek());
             }
-            st.push(num);
+            st.push(nums2[i]);
         }
 
-        // Any remaining elements in stack have no greater element
-        while (!st.isEmpty()) {
-            nextGreater.put(st.pop(), -1);
-        }
-
-        // Build result for nums1
+        // Step 2 -> Build result for nums1
         int[] result = new int[nums1.length];
         for (int i = 0; i < nums1.length; i++) {
             result[i] = nextGreater.get(nums1[i]);
