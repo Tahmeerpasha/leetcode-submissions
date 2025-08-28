@@ -19,26 +19,53 @@ class Solution {
     //     }
     //     return result;
     // }
+
+    // public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+    //     int n1 = nums1.length, k = n1 - 1;
+    //     int n2 = nums2.length;
+    //     int[] result = new int[n1];
+    //     for (int i = n1 - 1; i >= 0; i--) {
+    //         Stack<Integer> st = new Stack<>();
+    //         for (int j = n2 - 1; j >= 0 && nums1[i] != nums2[j]; j--) {
+    //             st.push(nums2[j]);
+    //         }
+    //         if (st.isEmpty() && k >= 0) {
+    //             result[k--] = -1;
+    //             continue;
+    //         }
+    //         while (!st.isEmpty() && st.peek() < nums1[i])
+    //             st.pop();
+    //         if (st.isEmpty())
+    //             result[k--] = -1;
+    //         else
+    //             result[k--] = st.peek();
+    //     }
+    //     return result;
+    // }
+
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-        int n1 = nums1.length, k = n1 - 1;
-        int n2 = nums2.length;
-        int[] result = new int[n1];
-        for (int i = n1 - 1; i >= 0; i--) {
-            Stack<Integer> st = new Stack<>();
-            for (int j = n2 - 1; j >= 0 && nums1[i] != nums2[j]; j--) {
-                st.push(nums2[j]);
+        Map<Integer, Integer> nextGreater = new HashMap<>();
+        Stack<Integer> st = new Stack<>();
+
+        // Traverse nums2 and fill nextGreater map
+        for (int num : nums2) {
+            while (!st.isEmpty() && st.peek() < num) {
+                nextGreater.put(st.pop(), num);
             }
-            if (st.isEmpty() && k >= 0) {
-                result[k--] = -1;
-                continue;
-            }
-            while (!st.isEmpty() && st.peek() < nums1[i])
-                st.pop();
-            if (st.isEmpty())
-                result[k--] = -1;
-            else
-                result[k--] = st.peek();
+            st.push(num);
         }
+
+        // Any remaining elements in stack have no greater element
+        while (!st.isEmpty()) {
+            nextGreater.put(st.pop(), -1);
+        }
+
+        // Build result for nums1
+        int[] result = new int[nums1.length];
+        for (int i = 0; i < nums1.length; i++) {
+            result[i] = nextGreater.get(nums1[i]);
+        }
+
         return result;
     }
 }
