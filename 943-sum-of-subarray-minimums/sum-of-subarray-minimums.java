@@ -10,7 +10,7 @@ class Solution {
         //     }
         // }
 
-        // Optimal 
+        // Optimal -> Time => O(4n) && Space -> O(4n)
         int[] nse = findNSE(arr);
         int[] pse = findPSE(arr);
         int MOD = 1000000007;
