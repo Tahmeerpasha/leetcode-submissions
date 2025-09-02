@@ -3,6 +3,18 @@ class Solution {
         return sumSubarrayMaxs(nums) - sumSubarrayMins(nums);
     }
 
+    public long sumSubarrayMaxs(int[] arr) {
+        long sum = 0;
+        int[] nge = findNGE(arr);
+        int[] pge = findPGE(arr);
+        for (int i = 0; i < arr.length; i++) {
+            int left = i - pge[i];
+            int right = nge[i] - i;
+            sum = (sum + (right * left * 1L * arr[i]));
+        }
+        return sum;
+    }
+
     public long sumSubarrayMins(int[] arr) {
         long sum = 0;
         int[] nse = findNSE(arr);
@@ -37,18 +49,6 @@ class Solution {
             st.push(i);
         }
         return pse;
-    }
-
-    public long sumSubarrayMaxs(int[] arr) {
-        long sum = 0;
-        int[] nge = findNGE(arr);
-        int[] pge = findPGE(arr);
-        for (int i = 0; i < arr.length; i++) {
-            int left = i - pge[i];
-            int right = nge[i] - i;
-            sum = (sum + (right * left * 1L * arr[i]));
-        }
-        return sum;
     }
 
     int[] findNGE(int[] arr) {
