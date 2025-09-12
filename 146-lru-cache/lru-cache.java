@@ -50,7 +50,7 @@ class LRUCache {
     private void insertAfterHead(Node node) {
         map.put(node.key, node);
         node.next = head.next;
-        node.next.prev = node;
+        head.next.prev = node;
         head.next = node;
         node.prev = head;
     }
