@@ -9,7 +9,8 @@ class Solution {
                     zeroCount--;
                 l++;
             }
-            max = Math.max(max, r - l + 1);
+            if (zeroCount <= k)
+                max = Math.max(max, r - l + 1);
             r++;
         }
         return max;
