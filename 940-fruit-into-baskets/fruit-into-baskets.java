@@ -23,8 +23,8 @@ class Solution {
                 if (map.get(fruits[l]) <= 0)
                     map.remove(fruits[l]);
                 l++;
-            }
-            maxLen = Math.max(maxLen, r - l + 1);
+            } else
+                maxLen = Math.max(maxLen, r - l + 1);
             r++;
         }
         return maxLen;
