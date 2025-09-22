@@ -12,6 +12,8 @@ class Solution {
         //     }
         // }
         // return maxLen;
+
+        // Optimal => TC->O(n) && Space -> O(3)
         int l = 0, r = 0, maxLen = 0;
         Map<Integer, Integer> map = new HashMap<>();
         while (r < fruits.length) {
