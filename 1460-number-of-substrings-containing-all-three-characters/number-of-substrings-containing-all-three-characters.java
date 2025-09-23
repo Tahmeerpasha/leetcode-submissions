@@ -1,5 +1,6 @@
 class Solution {
     public int numberOfSubstrings(String s) {
+        // Brute: TC => O(n^2) && SC => O(1)
         // int count = 0;
         // for (int i = 0; i < s.length(); i++) {
         //     int a = 0, b = 0, c = 0;
