@@ -18,7 +18,7 @@ class Solution {
         // }
         // return false;
 
-        // Optimal approach
+        // Optimal: Time => O(n) && Space => O(1)
         int n = s.length();
         int total = 0;
 
