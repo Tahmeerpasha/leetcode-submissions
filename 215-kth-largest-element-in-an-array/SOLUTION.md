@@ -1,84 +1,86 @@
-# 🧠 215. Kth Largest Element in an Array — Complete Notes
+## 🧩 Problem:
+
+**Find the Kth Largest Element in an Array**
+
+We’re given an unsorted array `nums` and an integer `k`.
+We need to return the **kth largest** element in the array (not the kth distinct).
 
 ---
 
-## 🔹 1. **Brute Force (Sorting)**
+## 🥉 **1. Brute Force — Sorting Approach**
 
-### 💡 Idea:
+### 💡 **Idea:**
 
-Sort the array and directly pick the kth largest element.
+If we sort the array, the elements will be in order.
+Then, the **kth largest** element is just the element at index `n - k` (0-based indexing).
 
-### 🧠 Code:
+### 🧠 **Code:**
 
 ```java
-Arrays.sort(nums); // ascending order
+Arrays.sort(nums);
 return nums[nums.length - k];
 ```
 
-—or—
+### ⏱️ **Complexity:**
 
-```java
-Arrays.sort(nums, Collections.reverseOrder()); // descending order (if using Integer[])
-return nums[k - 1];
-```
+* **Time:** O(n log n) — because of sorting.
+* **Space:** O(1) — in-place sorting (if `Arrays.sort()` for primitives).
 
-### ⏱️ Time Complexity:
+### ⚙️ **When to use:**
 
-* Sorting → **O(n log n)**
-* Access → **O(1)**
-  ✅ **Total = O(n log n)**
-
-### 🧮 Space Complexity:
-
-* **O(1)** (if in-place sorting)
-
-### ⚙️ Trick:
-
-* Easy one-liner; good for first try but not efficient for large inputs.
+* Quick and simple when constraints are small.
+* Not the most efficient for very large arrays.
 
 ---
 
-## 🔸 2. **Better Approach — Max Heap**
+## 🥈 **2. Better — Max Heap (Priority Queue with Reverse Order)**
 
-### 💡 Idea:
+### 💡 **Idea:**
 
-Use a **max heap** and remove the top `k - 1` largest elements.
-The next top element is the **kth largest**.
+* Use a **max heap** (largest element always at top).
+* Remove (`poll`) the largest `k - 1` elements.
+* The next element at the top is the **kth largest**.
 
-### 🧠 Code:
+### 🧠 **Code:**
 
 ```java
 PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
-for (int num : nums) {
-    maxHeap.add(num);
-}
-for (int i = 0; i < k - 1; i++) {
-    maxHeap.poll();
-}
+for (int num : nums) maxHeap.add(num);
+
+for (int i = 0; i < k - 1; i++) maxHeap.poll();
+
 return maxHeap.peek();
 ```
 
-### ⏱️ Time Complexity:
+### ⏱️ **Complexity:**
 
 * Build heap: O(n)
 * Remove (k-1) elements: O(k log n)
-  ✅ **Total = O(n + k log n)**
+* ✅ **Total:** O(n + k log n)
+* **Space:** O(n)
 
-### 🧮 Space Complexity:
+### ⚙️ **When to use:**
 
-* **O(n)** (heap stores all elements)
+* Easier to reason about conceptually.
+* Useful if you already have a heap-based utility.
 
 ---
 
-## 🔹 3. **Optimal Approach — Min Heap of Size k (Your Code ✅)**
+## 🥇 **3. Optimal 1 — Min Heap of Size k (Most Practical)**
 
-### 💡 Idea:
+### 💡 **Idea:**
 
-Keep a **min heap** of size `k`.
-Whenever size exceeds `k`, remove the smallest (top).
-Finally, top element is kth largest.
+Instead of keeping *all* elements in a heap,
+we only maintain the **top k largest elements** using a **min heap**.
 
-### 🧠 Code:
+Steps:
+
+1. Iterate through each number.
+2. Push into heap.
+3. If heap size exceeds `k`, remove the smallest (top).
+4. At the end, the top of the heap is the **kth largest**.
+
+### 🧠 **Code:**
 
 ```java
 PriorityQueue<Integer> pq = new PriorityQueue<>();
@@ -87,113 +89,89 @@ for (int num : nums) {
     if (pq.size() > k)
         pq.poll();
 }
-return pq.peek();
+return pq.poll();
 ```
 
-### ⏱️ Time Complexity:
+### ⏱️ **Complexity:**
 
-* Each add/poll → O(log k)
-* For all n → **O(n log k)**
+* Each add/poll: O(log k)
+* For all n elements: O(n log k)
+* ✅ **Total:** **O(n log k)**
+* **Space:** **O(k)**
 
-### 🧮 Space Complexity:
+### ⚙️ **Why it’s optimal:**
 
-* **O(k)**
-
-### ⚙️ Trick:
-
-* Min heap = best balance of simplicity + efficiency.
-* Works well when `k << n`.
+* Much faster than sorting when `k << n`.
+* Commonly used pattern for “kth largest” or “top K” problems.
 
 ---
 
-## 💎 4. **QuickSelect (Truly Optimal Average O(n))**
+## 💎 **4. Optimal 2 — QuickSelect (Average O(n))**
 
-### 💡 Idea:
+### 💡 **Idea:**
 
-Use a **partition-based approach** (like QuickSort):
+This is a variation of **QuickSort’s partition** logic.
+We select a pivot, partition the array so that:
 
-* Choose a pivot.
-* Partition the array so that:
+* Elements ≤ pivot are on one side,
+* Elements > pivot are on the other.
 
-  * All elements > pivot are on the left,
-  * All elements < pivot are on the right.
-* Based on pivot’s final position:
+Then:
 
-  * If pivot index = n - k → found kth largest.
-  * Else move left/right accordingly.
+* If pivot’s index == n - k → we found the kth largest.
+* Else we move left/right based on pivot’s position.
 
-### 🧠 Code:
+### 🧠 **Code (in your file):**
 
 ```java
-class Solution {
-    public int findKthLargest(int[] nums, int k) {
-        int left = 0, right = nums.length - 1;
-        int target = nums.length - k; // kth largest index (0-based)
-        
-        while (true) {
-            int pivotIndex = partition(nums, left, right);
-            if (pivotIndex == target)
-                return nums[pivotIndex];
-            else if (pivotIndex < target)
-                left = pivotIndex + 1;
-            else
-                right = pivotIndex - 1;
-        }
-    }
+int left = 0, right = nums.length - 1;
+int target = nums.length - k; // kth largest index (0-based)
 
-    private int partition(int[] nums, int left, int right) {
-        int pivot = nums[right];
-        int i = left;
-        for (int j = left; j < right; j++) {
-            if (nums[j] <= pivot) {
-                swap(nums, i, j);
-                i++;
-            }
-        }
-        swap(nums, i, right);
-        return i;
-    }
-
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-    }
+while (true) {
+    int pivotIndex = partition(nums, left, right);
+    if (pivotIndex == target)
+        return nums[pivotIndex];
+    else if (pivotIndex < target)
+        left = pivotIndex + 1;
+    else
+        right = pivotIndex - 1;
 }
 ```
 
-### ⏱️ Time Complexity:
+### ⏱️ **Complexity:**
 
-* Average: **O(n)**
-* Worst case (bad pivots): **O(n²)**
+| Case                   | Time  | Space |
+| ---------------------- | ----- | ----- |
+| **Average**            | O(n)  | O(1)  |
+| **Worst (bad pivots)** | O(n²) | O(1)  |
 
-### 🧮 Space Complexity:
+### ⚙️ **Why it’s powerful:**
 
-* **O(1)** (in-place)
-
-### ⚙️ Trick:
-
-* Same concept as **QuickSort partition**.
-* Excellent when space is tight and average performance matters.
-
----
-
-## ⚡ Summary Table
-
-| Approach       | Technique         | Time           | Space | Notes                            |
-| -------------- | ----------------- | -------------- | ----- | -------------------------------- |
-| Brute          | Sort array        | O(n log n)     | O(1)  | Simple                           |
-| Better         | Max Heap          | O(n + k log n) | O(n)  | Easier logic                     |
-| ✅ Optimal      | Min Heap (size k) | O(n log k)     | O(k)  | Most practical                   |
-| ⚡ True Optimal | QuickSelect       | Avg O(n)       | O(1)  | Fastest avg, tricky to implement |
+* Doesn’t need extra space.
+* Extremely fast on average.
+* Real-world implementations (like C++ `nth_element`) use this.
 
 ---
 
-## 💡 Interview Tricks
+## ⚡ **Quick Comparison**
 
-| Concept                                              | Tip                                       |
-| ---------------------------------------------------- | ----------------------------------------- |
-| Kth largest → use **Min Heap** of size k             | Kth smallest → use **Max Heap** of size k |
-| Use QuickSelect if interviewer says “no extra space” | It's in-place                             |
-| Always explain time tradeoff before coding           | Shows clarity                             |
-| Mention heapify O(n) build time if you use arrays    | Bonus points!                             |
+| Approach    | Time Complexity            | Space    | Type        | Notes                        |
+| ----------- | -------------------------- | -------- | ----------- | ---------------------------- |
+| Brute       | O(n log n)                 | O(1)     | Sort        | Easiest but slower           |
+| Better      | O(n + k log n)             | O(n)     | Max Heap    | Heavy on space               |
+| ✅ Optimal 1 | **O(n log k)**             | **O(k)** | Min Heap    | Best practical choice        |
+| ⚡ Optimal 2 | **O(n)** avg / O(n²) worst | **O(1)** | QuickSelect | Fastest in average, trickier |
+
+---
+
+## 💡 **Tricks & Interview Tips**
+
+| Concept                                           | Tip                                                         |
+| ------------------------------------------------- | ----------------------------------------------------------- |
+| kth largest → **Min Heap** of size k              | kth smallest → **Max Heap** of size k                       |
+| `PriorityQueue` in Java → **Min Heap by default** | Use `Collections.reverseOrder()` for Max Heap               |
+| In QuickSelect, always compute `target = n - k`   | Because 0-based indexing                                    |
+| Mention tradeoffs                                 | “QuickSelect is faster on average but unstable worst-case.” |
+| Use `peek()` to view top without removing         | Use `poll()` to remove                                      |
+
+---
