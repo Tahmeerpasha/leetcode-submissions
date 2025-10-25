@@ -31,7 +31,7 @@ class Solution {
         // Add the head nodes of all linked lists to the min heap
         for (ListNode node : lists) {
             if (node != null) {
-                minHeap.offer(node);
+                minHeap.add(node);
             }
         }
 
@@ -47,7 +47,7 @@ class Solution {
 
             // Move the smallest node's pointer forward in its original linked list
             if (smallest.next != null) {
-                minHeap.offer(smallest.next);
+                minHeap.add(smallest.next);
             }
         }
 
