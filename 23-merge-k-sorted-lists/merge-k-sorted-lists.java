@@ -24,7 +24,7 @@ class Solution {
         // }
         // return head;
 
-        // Optimal => Time -> O(n^2) && Space -> O(k)
+        // Optimal => Time -> O(n log k) && Space -> O(k)
         // Create a min heap using PriorityQueue
         PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
 
