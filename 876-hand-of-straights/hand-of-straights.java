@@ -38,10 +38,13 @@ class Solution {
             // try to take 'count' groups starting at start
             for (int v = start; v < start + groupSize; v++) {
                 Integer f = freq.get(v);
+                // If f < count, means that we will have smallest more than bigger numbers and we cannot form the groups
                 if (f == null || f < count)
                     return false;
+                // Used up all the values so remove
                 if (f == count)
                     freq.remove(v);
+                // There is still remaining to use so put back to the map
                 else
                     freq.put(v, f - count);
             }
