@@ -1,12 +1,12 @@
 class User {
     int id;
-    HashSet<Integer> followers;
+    HashSet<Integer> followees;
     List<Tweet> tweets;
 
     public User(int id) {
         this.id = id;
-        this.followers = new HashSet<>();
-        followers.add(id);
+        this.followees = new HashSet<>();
+        followees.add(id); // user follows themselves
         tweets = new LinkedList<>();
     }
 
@@ -14,12 +14,12 @@ class User {
         this.tweets.add(0, t);
     }
 
-    public void addFollower(int followerId) {
-        followers.add(followerId);
+    public void follow(int followeeId) {
+        followees.add(followeeId);
     }
 
-    public void removeFollower(int followerId) {
-        followers.remove(followerId);
+    public void unfollow(int followeeId) {
+        followees.remove(followeeId);
     }
 }
 
@@ -59,7 +59,7 @@ class Twitter {
             return new ArrayList<>();
         PriorityQueue<Tweet> pq = new PriorityQueue<>();
         User user = userMap.get(userId);
-        for (int followerId : user.followers) {
+        for (int followerId : user.followees) {
             int count = 0;
             for (Tweet tweet : userMap.get(followerId).tweets) {
                 if (count > 10)
@@ -83,7 +83,7 @@ class Twitter {
         if (!userMap.containsKey(followeeId))
             userMap.put(followeeId, new User(followeeId));
         User user = userMap.get(followerId);
-        user.addFollower(followeeId);
+        user.follow(followeeId);
     }
 
     public void unfollow(int followerId, int followeeId) {
@@ -92,7 +92,7 @@ class Twitter {
         if (!userMap.containsKey(followeeId))
             userMap.put(followeeId, new User(followeeId));
         User user = userMap.get(followerId);
-        user.removeFollower(followeeId);
+        user.unfollow(followeeId);
     }
 }
 
