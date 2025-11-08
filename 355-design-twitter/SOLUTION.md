@@ -1,100 +1,95 @@
-### 🧠 **Core Idea**
+## 🧠 **355. Design Twitter – Interview Notes**
 
-Simulate a simplified version of Twitter with these operations:
+### **1. Problem Statement (Goal)**
 
-1. **postTweet(userId, tweetId)** – user posts a tweet
-2. **getNewsFeed(userId)** – retrieve the 10 most recent tweets in user’s feed (their own + followees’)
-3. **follow(followerId, followeeId)**
-4. **unfollow(followerId, followeeId)**
+Design a simplified version of Twitter with four key operations:
 
----
-
-### 🧩 **Data Structures Used**
-
-| Component                        | Purpose                               | Type         |
-| -------------------------------- | ------------------------------------- | ------------ |
-| `User` class                     | Holds user data and operations        | Custom class |
-| `HashSet<Integer> followees`     | Track followees for each user         | O(1) lookup  |
-| `List<Tweet> tweets`             | Maintain posted tweets (newest first) | LinkedList   |
-| `HashMap<Integer, User> userMap` | Map userId → User object              | O(1) access  |
-| `PriorityQueue<Tweet>`           | Sort tweets by time (latest first)    | Min/Max heap |
+* **postTweet(userId, tweetId)** → user posts a new tweet.
+* **getNewsFeed(userId)** → returns the 10 most recent tweets from the user and their followees.
+* **follow(followerId, followeeId)** → follow a user.
+* **unfollow(followerId, followeeId)** → unfollow a user.
 
 ---
 
-### ⚙️ **How Each Operation Works**
+### **2. Data Structures Used**
 
-#### **1. postTweet(userId, tweetId)**
+| Data Structure                   | Purpose                                                        |
+| -------------------------------- | -------------------------------------------------------------- |
+| **`HashMap<Integer, User>`**     | Maps userId → User object for O(1) access.                     |
+| **`User` class**                 | Holds user details and tweets.                                 |
+| **`HashSet<Integer> followees`** | Stores followees to avoid duplicates and for O(1) lookup.      |
+| **`LinkedList<Tweet> tweets`**   | Stores tweets in reverse chronological order (newest first).   |
+| **`PriorityQueue<Tweet>`**       | Used in `getNewsFeed()` to fetch top 10 latest tweets by time. |
 
-* Ensure user exists; if not, create.
-* Add new `Tweet` to user’s tweet list with increasing `timeCounter`.
-* **O(1)** time.
+Each **Tweet** stores:
 
-#### **2. getNewsFeed(userId)**
-
-* Get all tweets from user’s followees (and themselves).
-* Use a **max heap (PriorityQueue)** to get latest tweets first.
-* Return top 10 tweets by timestamp.
-* **Time complexity:**
-
-  * Worst case: `O(F * T * log(F*T))`, where `F` = number of followees, `T` = tweets per followee (limited to 10 here).
-  * Effectively bounded by `O(F * 10 * log(F*10))` → **O(F log F)** in practice.
-* **Space:** `O(F * 10)` for heap.
-
-#### **3. follow(followerId, followeeId)**
-
-* Add followee to follower’s `followees` set.
-* **O(1)**
-
-#### **4. unfollow(followerId, followeeId)**
-
-* Remove followee from follower’s `followees` set.
-* **O(1)**
+* `tweetId`
+* `timestamp` (using global counter for ordering)
 
 ---
 
-### ⏱️ **Complexity Summary**
+### **3. Approach / Core Logic**
 
-| Operation       | Time       | Space |
-| --------------- | ---------- | ----- |
-| `postTweet()`   | O(1)       | O(1)  |
-| `getNewsFeed()` | O(F log F) | O(F)  |
-| `follow()`      | O(1)       | O(1)  |
-| `unfollow()`    | O(1)       | O(1)  |
+#### **Posting a Tweet**
 
----
+* If user doesn’t exist, create one.
+* Add tweet to their `tweets` list with incrementing global `timeCounter`.
 
-### 🧭 **Common Pitfalls & Fixes**
+#### **Getting News Feed**
 
-1. ❌ **Bug:** Iterating over `userMap.get(followerId)` directly without checking existence.
-   ✅ **Fix:** Always ensure both users exist before follow/unfollow (`userMap.putIfAbsent()`).
+* Retrieve user’s own and followees’ tweets.
+* Add up to 10 most recent tweets from each followee into a **max heap** based on timestamp.
+* Extract the top 10 tweets from the heap for the final feed.
 
-2. ❌ **Bug:** Returning >10 tweets.
-   ✅ **Fix:** Stop after pushing 10 from each followee + polling top 10 only.
+#### **Follow / Unfollow**
 
-3. ❌ **Performance issue:** Traversing entire tweet list per followee.
-   ✅ **Fix:** Only take most recent 10 per followee — no need to process all tweets.
-
-4. ❌ **Order mismatch:** Returning tweets in ascending order.
-   ✅ **Fix:** Use **max heap or reverse sorting** by `time` (`compareTo` returning descending order).
+* `follow()`: Add followeeId to follower’s followee set.
+* `unfollow()`: Remove followeeId (but ensure user can’t unfollow themselves).
 
 ---
 
-### 🪄 **Tips & Tricks**
+### **4. Time and Space Complexities**
 
-* **Always follow self** – ensures user’s own tweets show up in feed.
-* Use **global time counter** to maintain strict chronological order.
-* Keep **LinkedList for tweets** → O(1) addFirst for new tweets.
-* **Cap tweet storage per user** to avoid memory overflow in heavy tests.
-* When merging multiple tweet lists efficiently, you can use **k-way merge** with a heap (like merging k sorted lists).
+| Operation                 | Time Complexity                      | Space Complexity |
+| ------------------------- | ------------------------------------ | ---------------- |
+| `postTweet()`             | O(1)                                 | O(1)             |
+| `follow()` / `unfollow()` | O(1)                                 | O(1)             |
+| `getNewsFeed()`           | O(F log F) (F = number of followees) | O(F)             |
+
+> In practice, since we limit to 10 tweets per followee, `getNewsFeed` is efficient.
 
 ---
 
-### 💡 **Conceptual Takeaway**
+### **5. Key Design Decisions**
 
-This problem teaches:
+* Each user **follows themselves** by default to include their own tweets in the feed.
+* Use **LinkedList** so inserting new tweets is O(1) (at the head).
+* Use **PriorityQueue (max heap)** for sorting tweets by recency.
+* Maintain a **global time counter** to ensure chronological order across users.
 
-* How to design scalable social media systems (mini Twitter).
-* Using **HashMap + Heap combination** for fast aggregation and ordering.
-* Trade-offs between **time (heap merge)** vs **space (storing all tweets)**.
+---
+
+### **6. Optimizations / Real-World Scaling**
+
+* **Limit tweet storage** per user (e.g., last 100) to save memory.
+* Use **k-way merge** of tweet lists (similar to merging sorted lists) for faster feed generation.
+* Store tweets in a database and use **indexes** on timestamp for scalability.
+
+---
+
+### **7. Common Pitfalls**
+
+| Pitfall                                 | Fix                                        |
+| --------------------------------------- | ------------------------------------------ |
+| Forgetting to follow self               | Add `followees.add(userId)` in constructor |
+| Returning tweets in wrong order         | Use descending timestamp in `compareTo()`  |
+| Processing too many tweets per followee | Only take 10 most recent tweets            |
+| Not checking if user exists             | Always `putIfAbsent()` before operations   |
+
+---
+
+### **8. Example Summary (One-liner)**
+
+> “I built a mini Twitter using HashMaps, Sets, and a PriorityQueue. Each user stores their own tweets and followees. For the news feed, I gather tweets from all followees, sort by timestamp using a heap, and return the top 10 most recent ones.”
 
 ---
