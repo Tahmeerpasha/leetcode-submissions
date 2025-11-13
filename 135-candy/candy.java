@@ -1,27 +1,33 @@
 class Solution {
     public int candy(int[] ratings) {
-        int sum = 1, i = 1, n = ratings.length;
+        int n = ratings.length;
+        int sum = 1, i = 1;
         while (i < n) {
             if (ratings[i] == ratings[i - 1]) {
                 sum += 1;
                 i++;
                 continue;
             }
-            int peak = 1;
+
+            // Increasing slope
+            int up = 1;
             while (i < n && ratings[i] > ratings[i - 1]) {
-                peak++;
+                up++;
+                sum += up;
                 i++;
-                sum += peak;
             }
+
+            // Decreasing slope
             int down = 0;
             while (i < n && ratings[i] < ratings[i - 1]) {
                 down++;
-                i++;
                 sum += down;
+                i++;
             }
             down++;
-            if (down > peak)
-                sum += down - peak;
+            // Adjust peak overlap
+            if (down > up)
+                sum += down - up;
         }
         return sum;
     }
