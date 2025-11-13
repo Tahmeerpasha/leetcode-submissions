@@ -18,13 +18,13 @@ class Solution {
             }
 
             // Decreasing slope
-            int down = 0;
+            int down = 1;
             while (i < n && ratings[i] < ratings[i - 1]) {
-                down++;
                 sum += down;
+                down++;
                 i++;
             }
-            down++;
+            // down++;
             // Adjust peak overlap
             if (down > up)
                 sum += down - up;
