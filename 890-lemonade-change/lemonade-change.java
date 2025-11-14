@@ -5,9 +5,9 @@ class Solution {
             if (bills[i] == 5) {
                 five++;
             } else if (bills[i] == 10) {
+                ten++;
                 if (five >= 1) {
                     five--;
-                    ten++;
                 } else
                     return false;
             } else if (bills[i] == 20) {
