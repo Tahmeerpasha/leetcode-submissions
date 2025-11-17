@@ -16,11 +16,29 @@
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        inOrder(root, result);
+        // Iterative: TC => O(n) && SC => O(n)
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        while (true) {
+            if (node != null) {
+                stack.push(node);
+                node = node.left;
+            } else {
+                if (stack.isEmpty())
+                    break;
+                node = stack.pop();
+                result.add(node.val);
+                node = node.right;
+            }
+        }
+        // Recursive: TC => O(n) && SC => O(n)
+        // inOrder(root, result);
         return result;
     }
-    void inOrder(TreeNode root, List<Integer> result){
-        if(root == null)return;
+
+    void inOrder(TreeNode root, List<Integer> result) {
+        if (root == null)
+            return;
         inOrder(root.left, result);
         result.add(root.val);
         inOrder(root.right, result);
