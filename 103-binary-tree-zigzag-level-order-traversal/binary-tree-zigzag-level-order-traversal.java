@@ -20,7 +20,7 @@ class Solution {
         if (root == null)
             return result;
         queue.add(root);
-        int flag = 0;
+        boolean flag = true;
         while (!queue.isEmpty()) {
             int size = queue.size();
             List<Integer> subList = new ArrayList<>();
@@ -31,14 +31,13 @@ class Solution {
                     queue.add(queue.peek().right);
                 subList.add(queue.poll().val);
             }
-            if (flag == 0) {
+            if (flag) {
                 result.add(subList);
-                flag = 1;
             } else {
                 Collections.reverse(subList);
                 result.add(subList);
-                flag = 0;
             }
+            flag = !flag;
         }
         return result;
     }
