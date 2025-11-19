@@ -23,12 +23,8 @@ class Solution {
     int maxPath(TreeNode root, int[] sum) {
         if (root == null)
             return 0;
-        int left = maxPath(root.left, sum);
-        int right = maxPath(root.right, sum);
-        if (left < 0)
-            left = 0;
-        if (right < 0)
-            right = 0;
+        int left = Math.max(0, maxPath(root.left, sum));
+        int right = Math.max(0, maxPath(root.right, sum));
         sum[0] = Math.max(sum[0], left + right + root.val);
         return root.val + Math.max(left, right);
     }
