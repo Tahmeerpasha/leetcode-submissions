@@ -15,18 +15,6 @@
  */
 class Solution {
     public boolean checkTree(TreeNode root) {
-        // Base case: Leaf node ? property holds
-        if (root == null || (root.left == null && root.right == null))
-            return true;
-
-        int left = (root.left == null) ? 0 : root.left.val;
-        int right = (root.right == null) ? 0 : root.right.val;
-
-        // Check current node
-        if (root.val != left + right)
-            return false;
-
-        // Check subtrees
-        return checkTree(root.left) && checkTree(root.right);
+        return root.left.val + root.right.val == root.val;
     }
 }
