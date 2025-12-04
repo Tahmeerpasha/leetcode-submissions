@@ -107,7 +107,7 @@ class Solution {
         int rh = rightHeight(root);
 
         if (lh == rh) {
-            return ((2 << (lh)) - 1);
+            return (1 << (lh + 1)) - 1;
         }
 
         return 1 + countNodes(root.left) + countNodes(root.right);
