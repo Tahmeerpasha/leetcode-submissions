@@ -27,31 +27,31 @@ class Solution {
         // prev = root;
 
         // Using stack: TC - O(N) && SC - O(N)
-        Stack<TreeNode> st = new Stack<>();
-        st.push(root);
-        while (!st.isEmpty()) {
-            TreeNode curr = st.pop();
-            if (curr.right != null)
-                st.push(curr.right);
-            if (curr.left != null)
-                st.push(curr.left);
-            if (!st.isEmpty())
-                curr.right = st.peek();
-            curr.left = null;
-        }
+        // Stack<TreeNode> st = new Stack<>();
+        // st.push(root);
+        // while (!st.isEmpty()) {
+        //     TreeNode curr = st.pop();
+        //     if (curr.right != null)
+        //         st.push(curr.right);
+        //     if (curr.left != null)
+        //         st.push(curr.left);
+        //     if (!st.isEmpty())
+        //         curr.right = st.peek();
+        //     curr.left = null;
+        // }
 
         // Using morris traversal
-        // TreeNode curr = root;
-        // while (curr != null) {
-        //     if (curr.left != null) {
-        //         TreeNode prev = curr.left;
-        //         while (prev.right != null)
-        //             prev = prev.right;
-        //         prev.right = curr.right;
-        //         curr.right = curr.left;
-        //         curr.left = null;
-        //     }
-        //     curr = curr.right;
-        // }
+        TreeNode curr = root;
+        while (curr != null) {
+            if (curr.left != null) {
+                TreeNode prev = curr.left;
+                while (prev.right != null)
+                    prev = prev.right;
+                prev.right = curr.right;
+                curr.right = curr.left;
+                curr.left = null;
+            }
+            curr = curr.right;
+        }
     }
 }
