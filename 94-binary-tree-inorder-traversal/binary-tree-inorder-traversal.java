@@ -35,6 +35,7 @@ class Solution {
         // inOrder(root, result);
 
         // Morris traversal for inorder
+        // TC - O(N) && SC - O(1)
         TreeNode curr = root;
         while (curr != null) {
             if (curr.left == null) {
