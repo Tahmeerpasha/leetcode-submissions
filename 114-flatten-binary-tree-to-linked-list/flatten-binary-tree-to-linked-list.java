@@ -20,25 +20,25 @@ class Solution {
         if (root == null)
             return;
         // Using recursion: TC - O(N) && SC - O(N)
-        flatten(root.right);
-        flatten(root.left);
-        root.right = prev;
-        root.left = null;
-        prev = root;
+        // flatten(root.right);
+        // flatten(root.left);
+        // root.right = prev;
+        // root.left = null;
+        // prev = root;
 
         // Using stack: TC - O(N) && SC - O(N)
-        // Stack<TreeNode> st = new Stack<>();
-        // st.push(root);
-        // while (!st.isEmpty()) {
-        //     TreeNode curr = st.pop();
-        //     if (curr.right != null)
-        //         st.push(curr.right);
-        //     if (curr.left != null)
-        //         st.push(curr.left);
-        //     if (!st.isEmpty())
-        //         curr.right = st.peek();
-        //     curr.left = null;
-        // }
+        Stack<TreeNode> st = new Stack<>();
+        st.push(root);
+        while (!st.isEmpty()) {
+            TreeNode curr = st.pop();
+            if (curr.right != null)
+                st.push(curr.right);
+            if (curr.left != null)
+                st.push(curr.left);
+            if (!st.isEmpty())
+                curr.right = st.peek();
+            curr.left = null;
+        }
 
         // Using morris traversal
         // TreeNode curr = root;
