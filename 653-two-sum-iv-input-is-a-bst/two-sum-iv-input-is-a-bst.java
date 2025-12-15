@@ -14,62 +14,67 @@
  * }
  */
 class Solution {
-    public boolean findTarget(TreeNode root, int k) {
+    public boolean findTarget(TreeNode root, int target) {
         if (root == null)
             return false;
-        BSTIterator next = new BSTIterator(root, false);
-        BSTIterator before = new BSTIterator(root, true);
-        // NEXT
-        int l = next.next();
-        // BEFORE
-        int r = before.next();
 
-        while (l < r) {
-            if (l + r == k)
+        // Left iterator → gives next smallest
+        BSTIterator asc = new BSTIterator(root, false);
+
+        // Right iterator → gives next largest
+        BSTIterator desc = new BSTIterator(root, true);
+
+        int leftVal = asc.next();
+        int rightVal = desc.next();
+
+        while (leftVal < rightVal) {
+            int sum = leftVal + rightVal;
+
+            if (sum == target) {
                 return true;
-            else if (l + r < k)
-                l = next.next();
-            else
-                r = before.next();
+            } else if (sum < target) {
+                leftVal = asc.next(); // move upwards from left side
+            } else {
+                rightVal = desc.next(); // move downwards from right side
+            }
         }
+
         return false;
     }
 }
 
 class BSTIterator {
-    Stack<TreeNode> st;
-    boolean isBefore;
+    private Stack<TreeNode> stack;
+    private boolean reverse; // false → smallest iterator, true → largest iterator
 
-    public BSTIterator(TreeNode root, boolean isBefore) {
-        this.st = new Stack<>();
-        this.isBefore = isBefore;
-        pushAll(root);
+    public BSTIterator(TreeNode root, boolean reverse) {
+        this.stack = new Stack<>();
+        this.reverse = reverse;
+        pushPath(root);
     }
 
+    // Returns next smallest (reverse = false) or next largest (reverse = true)
     public int next() {
-        if (st.isEmpty())
-            return -1;
-        TreeNode node = st.pop();
-        if (!isBefore) {
-            pushAll(node.right);
-        } else {
-            pushAll(node.left);
-        }
-        return node.val;
+        TreeNode node = stack.pop();
 
+        if (!reverse) {
+            pushPath(node.right); // normal inorder → left, node, right
+        } else {
+            pushPath(node.left); // reverse inorder → right, node, left
+        }
+
+        return node.val;
     }
 
     public boolean hasNext() {
-        return !st.isEmpty();
+        return !stack.isEmpty();
     }
 
-    void pushAll(TreeNode root) {
-        while (root != null) {
-            st.push(root);
-            if (!isBefore)
-                root = root.left;
-            else
-                root = root.right;
+    // Pushes all left (or right) children depending on iterator type
+    private void pushPath(TreeNode node) {
+        while (node != null) {
+            stack.push(node);
+            node = reverse ? node.right : node.left;
         }
     }
 }
