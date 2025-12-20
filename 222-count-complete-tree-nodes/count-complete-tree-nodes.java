@@ -20,7 +20,7 @@ class Solution {
         int lh = getLeftHeight(root);
         int rh = getRightHeight(root);
         if (lh == rh)
-            return ((2 << (lh)) - 1);
+            return (1 << (lh + 1)) - 1;
         else
             return 1 + countNodes(root.left) + countNodes(root.right);
     }
