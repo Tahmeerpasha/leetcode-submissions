@@ -1,5 +1,7 @@
 class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        if (image[sr][sc] == color)
+            return image;
         int[][] ans = image;
         int iniClr = image[sr][sc];
         int[] drow = { -1, 0, 1, 0 };
