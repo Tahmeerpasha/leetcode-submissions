@@ -1,9 +1,9 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-        int low = 1, high = max(piles);
+        int low = 0, high = max(piles);
         while (low <= high) {
-            int mid = (low + high) / 2;
-            int totalH = findTotal(piles, mid);
+            int mid = low + (high - low) / 2;
+            int totalH = calTotalHrs(piles, mid);
             if (totalH <= h)
                 high = mid - 1;
             else
@@ -12,17 +12,17 @@ class Solution {
         return low;
     }
 
-    int findTotal(int[] nums, int hour) {
+    int calTotalHrs(int[] piles, int hr) {
         int total = 0;
-        for (int num : nums)
-            total += Math.ceil((double) num / (double) hour);
+        for (int val : piles)
+            total += Math.ceil((double) val / (double) hr);
         return total;
     }
 
-    int max(int[] nums) {
+    int max(int[] piles) {
         int max = Integer.MIN_VALUE;
-        for (int num : nums)
-            max = Math.max(max, num);
+        for (int val : piles)
+            max = Math.max(max, val);
         return max;
     }
 }
