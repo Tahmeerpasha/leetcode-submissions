@@ -1,8 +1,6 @@
 class Solution {
     public int maxSubArray(int[] nums) {
         int max = Integer.MIN_VALUE, cnt = 0;
-        // if (nums.length <= 1)
-        //     return nums[0];
         for (int num : nums) {
             if (cnt < 0)
                 cnt = 0;
