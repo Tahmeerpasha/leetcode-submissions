@@ -1,35 +1,35 @@
 class Solution {
     public void nextPermutation(int[] nums) {
-        int index = -1;
         int n = nums.length;
-        for (int i = n - 2; i >= 0; i--) {
-            if (nums[i] < nums[i + 1]) {
-                index = i;
+        int i = 0;
+        for (i = n - 2; i >= 0; i--) {
+            if (nums[i] < nums[i + 1])
                 break;
-            }
         }
-        if (index == -1) {
+        if (i < 0) {
             reverse(nums, 0, n - 1);
             return;
         }
-        for (int i = n - 1; i > index; i--) {
-            if (nums[i] > nums[index]) {
-                int temp = nums[i];
-                nums[i] = nums[index];
-                nums[index] = temp;
+        int j = 0;
+        for (j = n - 1; j >= 0; j--) {
+            if (nums[j] > nums[i])
                 break;
-            }
         }
-        reverse(nums, index + 1, n - 1);
+        swap(nums, i, j);
+        reverse(nums, i + 1, n - 1);
     }
 
-    void reverse(int[] nums, int i, int j) {
-        while (i < j) {
-            int temp = nums[i];
-            nums[i] = nums[j];
-            nums[j] = temp;
-            i++;
-            j--;
+    void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            swap(nums, start, end);
+            start++;
+            end--;
         }
+    }
+
+    void swap(int[] nums, int start, int end) {
+        int temp = nums[start];
+        nums[start] = nums[end];
+        nums[end] = temp;
     }
 }
