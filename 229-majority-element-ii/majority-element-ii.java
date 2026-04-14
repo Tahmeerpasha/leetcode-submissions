@@ -6,10 +6,10 @@ class Solution {
         for (int num : nums) {
             if (cnt1 == 0 && cand2 != num) {
                 cand1 = num;
-                cnt1 = 1;
+                cnt1++;
             } else if (cnt2 == 0 && cand1 != num) {
                 cand2 = num;
-                cnt2 = 1;
+                cnt2++;
             } else if (cand1 == num)
                 cnt1++;
             else if (cand2 == num)
@@ -27,9 +27,9 @@ class Solution {
             else if (num == cand2)
                 cnt2++;
         }
-        if (n / 3 < cnt1)
+        if (cnt1 > n / 3)
             result.add(cand1);
-        if (n / 3 < cnt2)
+        if (cnt2 > n / 3)
             result.add(cand2);
         return result;
     }
