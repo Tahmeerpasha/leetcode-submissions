@@ -1,35 +1,33 @@
 class Solution {
     public int minDays(int[] bloomDay, int m, int k) {
-        if (bloomDay.length < m * k)
+        if (bloomDay.length < (long) m * k)
             return -1;
-        int low = findMin(bloomDay), high = findMax(bloomDay);
-        int answer = -1;
+        int low = 1, high = findMax(bloomDay);
         while (low <= high) {
             int mid = low + (high - low) / 2;
-            if (isBouquetFormed(bloomDay, mid, m, k)) {
-                answer = mid;
+            if (canMakeBouquet(bloomDay, mid, m, k)) {
                 high = mid - 1;
             } else
                 low = mid + 1;
         }
-        return answer;
+        return low;
     }
 
-    boolean isBouquetFormed(int[] bloomDay, int day, int m, int k) {
-        int cnt = 0;
+    boolean canMakeBouquet(int[] bloomDay, int day, int m, int k) {
+        int consequetiveFlowers = 0, bouquet = 0;
         for (int i = 0; i < bloomDay.length; i++) {
             if (bloomDay[i] <= day) {
-                cnt++;
+                consequetiveFlowers++;
             } else {
-                cnt = 0;
+                consequetiveFlowers = 0;
             }
-            if (cnt == k) {
-                cnt = 0;
-                m--;
+            if (consequetiveFlowers == k) {
+                consequetiveFlowers = 0;
+                bouquet++;
             }
 
         }
-        return m <= 0;
+        return bouquet >= m;
     }
 
     int findMin(int[] bloomDay) {
