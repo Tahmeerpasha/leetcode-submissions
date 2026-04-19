@@ -1,50 +1,39 @@
 class Solution {
     public int splitArray(int[] nums, int k) {
-        if (nums.length < k)
-            return -1;
-        int low = max(nums);
-        int high = sum(nums);
-
-        // for (int i = low; i <= high; i++) {
-        //     if (numOfSubArrays(nums, i) == k)
-        //         return i;
-        // }
-
+        int low = findMax(nums), high = findSum(nums);
         while (low <= high) {
-            int mid = (low + high) / 2;
-            if (numOfSubArrays(nums, mid) > k)
-                low = mid + 1;
-            else
+            int mid = low + (high - low) / 2;
+            if (canSplitArray(nums, k, mid))
                 high = mid - 1;
+            else
+                low = mid + 1;
         }
         return low;
     }
 
-    int max(int[] nums) {
-        int max = Integer.MIN_VALUE;
-        for (int num : nums) {
-            max = Math.max(max, num);
-        }
-        return max;
-    }
-
-    int sum(int[] nums) {
-        int sum = 0;
+    boolean canSplitArray(int[] nums, int k, int limit) {
+        int cnt = 1, sum = 0;
         for (int num : nums) {
             sum += num;
-        }
-        return sum;
-    }
-
-    int numOfSubArrays(int[] arr, int size) {
-        int numOfSubArrays = 1, sum = 0;
-        for (int num : arr) {
-            sum += num;
-            if (sum > size) {
-                numOfSubArrays++;
+            if (sum > limit) {
+                cnt++;
                 sum = num;
             }
         }
-        return numOfSubArrays;
+        return cnt <= k;
+    }
+
+    int findMax(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        for (int num : nums)
+            max = Math.max(max, num);
+        return max;
+    }
+
+    int findSum(int[] nums) {
+        int sum = 0;
+        for (int num : nums)
+            sum += num;
+        return sum;
     }
 }
