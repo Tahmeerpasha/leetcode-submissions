@@ -6,12 +6,12 @@ class Solution {
 
         int start = 0, end = 0;
         for (int i = 0; i < s.length(); i++) {
-            int len1 = expandAroundCenter(s, i, i); // Odd length palindrome
-            int len2 = expandAroundCenter(s, i, i + 1); // Even length palindrome
-            int len = Math.max(len1, len2);
-            if (len > end - start) {
-                start = i - (len - 1) / 2;
-                end = i + len / 2;
+            int odd = expandAroundCenter(s, i, i); // Odd length palindrome
+            int even = expandAroundCenter(s, i, i + 1); // Even length palindrome
+            int maxLen = Math.max(odd, even);
+            if (maxLen > end - start) {
+                start = i - (maxLen - 1) / 2;
+                end = i + maxLen / 2;
             }
         }
         return s.substring(start, end + 1);
