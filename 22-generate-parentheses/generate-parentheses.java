@@ -1,21 +1,18 @@
 class Solution {
     public List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<>();
-        // Time and Space -> O(2^2n)
-        generate(result, n, 0, 0, "");
+        generate(n, "", result, 0, 0);
         return result;
     }
 
-    void generate(List<String> result, int n, int open, int close, String currStr) {
-        if (currStr.length() == n * 2) {
-            result.add(currStr);
+    void generate(int n, String curr, List<String> result, int open, int close) {
+        if (curr.length() == 2 * n) {
+            result.add(curr);
             return;
         }
-
         if (open < n)
-            generate(result, n, open + 1, close, currStr + "(");
+            generate(n, curr + "(", result, open + 1, close);
         if (close < open)
-            generate(result, n, open, close + 1, currStr + ")");
-
+            generate(n, curr + ")", result, open, close + 1);
     }
 }
