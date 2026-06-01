@@ -1,80 +1,32 @@
 class Solution {
     public void setZeroes(int[][] matrix) {
-        // time -> O(mn) & space -> O(n)
-        // List<Position> positions = new ArrayList<>();
-
-        // for(int i=0; i<matrix.length; i++){
-        //     for(int j=0; j<matrix[0].length; j++){
-        //         if(matrix[i][j] == 0)
-        //             positions.add(new Position(i, j));
-        //     }
-        // }
-
-        // for(int i=0; i<positions.size(); i++){
-        //     Position position = positions.get(i);
-        //     int row = position.row;
-        //     int col = position.col;
-        //     for(int j=0; j<matrix[0].length; j++){
-        //         matrix[row][j] = 0;
-        //     }
-        //     for(int j=0; j<matrix.length; j++){
-        //         matrix[j][col] = 0;
-        //     }
-        // }
-
-        // Time -> O(mn) & Space -> O(1)
-        int col0 = 1;
-        int n = matrix.length;
-        int m = matrix[0].length;
-        // step 1: Traverse the matrix and
-        // mark 1st row & col accordingly:
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (matrix[i][j] == 0) {
-                    // mark i-th row:
-                    matrix[i][0] = 0;
-
-                    // mark j-th column:
-                    if (j != 0)
-                        matrix[0][j]=0;
-                    else
-                        col0 = 0;
+        int row0 = 1;
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[0].length; col++) {
+                if (row == 0 && matrix[row][col] == 0) {
+                    row0 = 0;
+                } else if (matrix[row][col] == 0) {
+                    matrix[row][0] = 0;
+                    matrix[0][col] = 0;
                 }
             }
         }
-
-        // Step 2: Mark with 0 from (1,1) to (n-1, m-1):
-        for (int i = 1; i < n; i++) {
-            for (int j = 1; j < m; j++) {
-                if (matrix[i][j] != 0) {
-                    // check for col & row:
-                    if (matrix[i][0] == 0 || matrix[0][j] == 0) {
-                        matrix[i][j]=0;
-                    }
+        for (int row = 1; row < matrix.length; row++) {
+            if (matrix[row][0] == 0) {
+                for (int col = 0; col < matrix[0].length; col++) {
+                    matrix[row][col] = 0;
                 }
             }
         }
-
-        //step 3: Finally mark the 1st col & then 1st row:
-        if (matrix[0][0] == 0) {
-            for (int j = 0; j < m; j++) {
-                matrix[0][j] = 0;
+        for (int col = 0; col < matrix[0].length; col++) {
+            if (matrix[0][col] == 0) {
+                for (int row = 0; row < matrix.length; row++)
+                    matrix[row][col] = 0;
             }
         }
-        if (col0 == 0) {
-            for (int i = 0; i < n; i++) {
-                matrix[i][0] = 0;
-            }
+        if (row0 == 0) {
+            for (int col = 0; col < matrix[0].length; col++)
+                matrix[row0][col] = 0;
         }
-
     }
 }
-
-// class Position {
-//     int row, col;
-
-//     Position(int row, int col) {
-//         this.row = row;
-//         this.col = col;
-//     }
-// }
