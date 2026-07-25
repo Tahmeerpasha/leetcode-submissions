@@ -6,12 +6,22 @@ class Solution {
         // Arrays.fill(dp, -1);
         // return climbStairsWithDp(n, dp);
 
-        dp[0] = 1;
-        dp[1] = 1;
+        // dp[0] = 1;
+        // dp[1] = 1;
+        // for (int i = 2; i <= n; i++) {
+        //     dp[i] = dp[i - 1] + dp[i - 2];
+        // }
+        // return dp[n];
+
+        int last = 1;
+        int secondLast = last;
+        int curr = 0;
         for (int i = 2; i <= n; i++) {
-            dp[i] = dp[i - 1] + dp[i - 2];
+            curr = last + secondLast;
+            secondLast = last;
+            last = curr;
         }
-        return dp[n];
+        return last;
     }
 
     int climbStairsWithDp(int n, int[] dp) {
