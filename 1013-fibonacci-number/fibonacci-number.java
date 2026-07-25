@@ -3,17 +3,29 @@ class Solution {
         // DP - Memoization | TC -> O(n) && SC -> O(n) + O(n)
         if (n <= 1)
             return n;
-        int[] dp = new int[n + 1];
+        // int[] dp = new int[n + 1];
         // Arrays.fill(dp, -1);
         // return fibSeries(n, dp);
 
         // DP - Tabulation | TC -> O(n) && SC -> O(n)
-        dp[0] = 0;
-        dp[1] = 1;
+        // dp[0] = 0;
+        // dp[1] = 1;
+        // for (int i = 2; i <= n; i++) {
+        //     dp[i] = dp[i - 1] + dp[i - 2];
+        // }
+        // return dp[n];
+
+        // TC -> O(n) && SC -> O(1)
+        int secondLast = 0;
+        int last = 1;
+        int curr = 0;
         for (int i = 2; i <= n; i++) {
-            dp[i] = dp[i - 1] + dp[i - 2];
+            curr = last + secondLast;
+            secondLast = last;
+            last = curr;
         }
-        return dp[n];
+        return last;
+
     }
 
     int fibSeries(int n, int[] dp) {
